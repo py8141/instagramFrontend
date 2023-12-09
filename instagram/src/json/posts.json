@@ -1,0 +1,103 @@
+[ 
+    {
+        "postId": "post4",
+        "userId": "user101",
+        "username": "mary_jane",
+        "timestamp": "2023-01-18T09:15:00Z",
+        "datatype": "image",
+        "data": "https://source.unsplash.com/800x600/?animals",
+        "caption": "Adorable animals!",
+        "category": "Animals",
+        "likesOnPost": [
+            { "userId": "user456", "postId": "post4", "timestamp": "2023-01-18T10:30:00Z" },
+            { "userId": "user789", "postId": "post4", "timestamp": "2023-01-18T11:45:00Z" }
+        ],
+        "comments": [
+            { "userId": "user202", "postId": "post4", "timestamp": "2023-01-18T12:30:00Z", "comment": "So cute!" },
+            { "userId": "user303", "postId": "post4", "timestamp": "2023-01-18T13:15:00Z", "comment": "I love animals!" },
+            { "userId": "user202", "postId": "post4", "timestamp": "2023-01-18T12:30:00Z", "comment": "So cute!" },
+            { "userId": "user303", "postId": "post4", "timestamp": "2023-01-18T13:15:00Z", "comment": "I love animals!" },
+            { "userId": "user202", "postId": "post4", "timestamp": "2023-01-18T12:30:00Z", "comment": "So cute!" },
+            { "userId": "user303", "postId": "post4", "timestamp": "2023-01-18T13:15:00Z", "comment": "I love animals!" }
+        ]
+    },
+    {
+        "postId": "post5",
+        "userId": "user202",
+        "username": "david_smith",
+        "timestamp": "2023-01-19T14:30:00Z",
+        "datatype": "video",
+        "data": "https://www.youtube.com/watch?v=P8P_S1Fjl_Q&pp=ygULY2FycnltaW5hdGk%3D",
+        "caption": "Exploring new places!",
+        "category": "Travel",
+        "likesOnPost": [
+            { "userId": "user123", "postId": "post5", "timestamp": "2023-01-19T15:45:00Z" },
+            { "userId": "user456", "postId": "post5", "timestamp": "2023-01-19T16:30:00Z" },
+            { "userId": "user456", "postId": "post5", "timestamp": "2023-01-19T16:30:00Z" },
+            { "userId": "user456", "postId": "post5", "timestamp": "2023-01-19T16:30:00Z" },
+            { "userId": "user456", "postId": "post5", "timestamp": "2023-01-19T16:30:00Z" }
+        ],
+        "comments": [
+            { "userId": "user101", "postId": "post5", "timestamp": "2023-01-19T17:45:00Z", "comment": "Amazing journey!" },
+            { "userId": "user789", "postId": "post5", "timestamp": "2023-01-19T18:30:00Z", "comment": "Wish I was there!" },
+            { "userId": "user202", "postId": "post4", "timestamp": "2023-01-18T12:30:00Z", "comment": "So cute!" },
+            { "userId": "user303", "postId": "post4", "timestamp": "2023-01-18T13:15:00Z", "comment": "I love animals!" }
+        ]
+    },
+  
+  {
+        "postId": "post1",
+        "userId": "user123",
+        "username": "john_doe",
+        "timestamp": "2023-01-15T08:30:00Z",
+        "datatype": "image",
+        "data": "https://source.unsplash.com/800x600/?nature",
+        "caption": "Beautiful view!",
+        "category": "Nature",
+        "likesOnPost": [
+            { "userId": "user456", "postId": "post1", "timestamp": "2023-01-15T09:00:00Z" },
+            { "userId": "user789", "postId": "post1", "timestamp": "2023-01-15T10:30:00Z" }
+        ],
+        "comments": [
+            { "userId": "user101", "postId": "post1", "timestamp": "2023-01-15T11:15:00Z", "comment": "Amazing shot!" },
+            { "userId": "user202", "postId": "post1", "timestamp": "2023-01-15T12:45:00Z", "comment": "Love it!" }
+        ]
+    },
+    {
+        "postId": "post2",
+        "userId": "user456",
+        "username": "jane_smith",
+        "timestamp": "2023-01-16T14:00:00Z",
+        "datatype": "video",
+        "data": "https://www.youtube.com/watch?v=HdBjCTFeOI4",
+        "caption": "Check out my latest video!",
+        "category": "Vlogs",
+        "likesOnPost": [
+            { "userId": "user123", "postId": "post2", "timestamp": "2023-01-16T14:30:00Z" },
+            { "userId": "user789", "postId": "post2", "timestamp": "2023-01-16T15:45:00Z" }
+        ],
+        "comments": [
+            { "userId": "user202", "postId": "post2", "timestamp": "2023-01-16T16:30:00Z", "comment": "Great content!" },
+            { "userId": "user303", "postId": "post2", "timestamp": "2023-01-16T17:15:00Z", "comment": "I enjoyed it!" }
+        ]
+    },
+    {
+        "postId": "post3",
+        "userId": "user789",
+        "username": "alice_green",
+        "timestamp": "2023-01-17T11:45:00Z",
+        "datatype": "image",
+        "data": "https://source.unsplash.com/800x600/?architecture",
+        "caption": "City skyline!",
+        "category": "Architecture",
+        "likesOnPost": [
+            { "userId": "user123", "postId": "post3", "timestamp": "2023-01-17T12:15:00Z" },
+            { "userId": "user456", "postId": "post3", "timestamp": "2023-01-17T13:30:00Z" },
+            { "userId": "user456", "postId": "post5", "timestamp": "2023-01-19T16:30:00Z" }
+        ],
+        "comments": [
+            { "userId": "user101", "postId": "post3", "timestamp": "2023-01-17T14:45:00Z", "comment": "Stunning architecture!" },
+            { "userId": "user202", "postId": "post3", "timestamp": "2023-01-17T15:30:00Z", "comment": "Love the photo!" }
+        ]
+    }
+]

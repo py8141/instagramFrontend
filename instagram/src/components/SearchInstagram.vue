@@ -4,6 +4,7 @@
 <style scoped>
 p{
     padding-top: 70px;
+    height: 100px;
 }
 </style>
 <script>

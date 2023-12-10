@@ -20,9 +20,11 @@
                         <img :src="post.data" :alt="image" class= "cover">
                     </div>
                     <div v-else-if="post.datatype === 'video'"> 
-                        <video  alt="video" class= "cover" controls>
-                        <source :src="post.data" type="video/mp4">
-                        </video>
+                     <iframe src="https://www.youtube.com/embed/HorXomQrOi8" class="cover"> 
+                         <!-- <video  alt="video" class= "cover"  controls>
+                         <source :src="post.data" type="video/mp4"> 
+                         </video>  -->
+                     </iframe>
                     </div>
                 </div>
                 <div class="btns">

@@ -1,0 +1,74 @@
+[
+    {
+      "postId": "post1",
+      "userId": "user123",
+      "username": "john_doe",
+      "timestamp": "2023-01-15T08:30:00Z",
+      "datatype": "image",
+      "data": "https://source.unsplash.com/800x600/?nature",
+      "caption": "Beautiful view!",
+      "category": "Nature",
+      "likesOnPost": [
+        {"userId": "user456", "timestamp": "2023-01-15T09:00:00Z"},
+        {"userId": "user789", "timestamp": "2023-01-15T10:30:00Z"}
+      ],
+      "comments": [
+        {"userId": "user101", "timestamp": "2023-01-15T11:15:00Z", "comment": "Amazing shot!"},
+        {"userId": "user202", "timestamp": "2023-01-15T12:45:00Z", "comment": "Love it!"}
+      ]
+    },
+    {
+      "postId": "post2",
+      "userId": "user456",
+      "username": "jane_smith",
+      "timestamp": "2023-01-16T14:00:00Z",
+      "datatype": "video",
+      "data": "https://www.youtube.com/embed/HorXomQrOi8",
+      "caption": "Check out my latest video!",
+      "category": "Vlogs",
+      "likesOnPost": [
+        {"userId": "user123", "timestamp": "2023-01-16T14:30:00Z"},
+        {"userId": "user789", "timestamp": "2023-01-16T15:45:00Z"}
+      ],
+      "comments": [
+        {"userId": "user202", "timestamp": "2023-01-16T16:30:00Z", "comment": "Great content!"},
+        {"userId": "user303", "timestamp": "2023-01-16T17:15:00Z", "comment": "I enjoyed it!"}
+      ]
+    },
+    {
+      "postId": "post3",
+      "userId": "user789",
+      "username": "alice_green",
+      "timestamp": "2023-01-17T11:45:00Z",
+      "datatype": "image",
+      "data": "https://www.youtube.com/embed/HorXomQrOi8",
+      "caption": "City skyline!",
+      "category": "Architecture",
+      "likesOnPost": [
+        {"userId": "user123", "timestamp": "2023-01-17T12:15:00Z"},
+        {"userId": "user456", "timestamp": "2023-01-17T13:30:00Z"}
+      ],
+      "comments": [
+        {"userId": "user101", "timestamp": "2023-01-17T14:45:00Z", "comment": "Stunning architecture!"},
+        {"userId": "user202", "timestamp": "2023-01-17T15:30:00Z", "comment": "Love the photo!"}
+      ]
+    },
+    {
+        "postId": "post3",
+        "userId": "user789",
+        "username": "alice_green",
+        "timestamp": "2023-01-17T11:45:00Z",
+        "datatype": "image",
+        "data": "https://source.unsplash.com/800x600/?architecture",
+        "caption": "City skyline!",
+        "category": "Architecture",
+        "likesOnPost": [
+          {"userId": "user123", "timestamp": "2023-01-17T12:15:00Z"},
+          {"userId": "user456", "timestamp": "2023-01-17T13:30:00Z"}
+        ],
+        "comments": [
+          {"userId": "user101", "timestamp": "2023-01-17T14:45:00Z", "comment": "Stunning architecture!"},
+          {"userId": "user202", "timestamp": "2023-01-17T15:30:00Z", "comment": "Love the photo!"}
+        ]
+      }
+  ]

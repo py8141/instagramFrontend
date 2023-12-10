@@ -3,9 +3,9 @@
         <div class="sidebar">
                 <router-link to="/postInstagram">HOME</router-link>
                 <router-link to="/search">SEARCH</router-link>
-                <router-link to="/">PROFILE</router-link>
+                <router-link to="/profile">PROFILE</router-link>
                 <router-link to="/upload">UPLOAD</router-link>
-                <router-link to="/">ACTIVITY</router-link>
+                <router-link to="/activity">ACTIVITY</router-link>
         </div>
 
         <div class="content">

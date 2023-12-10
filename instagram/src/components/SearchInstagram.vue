@@ -1,7 +1,7 @@
 <template>
  <p> This is a search page</p>
 </template>
-<style>
+<style scoped>
 p{
     padding-top: 70px;
 }

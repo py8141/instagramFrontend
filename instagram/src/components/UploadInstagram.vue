@@ -12,20 +12,40 @@
             </div>
             <textarea placeholder="What's on your mind ?" spellcheck="false" required></textarea>
             <div class="options">
-              <p>Upload Photo/Video</p>
-              <ul class="list">
-                <input type="file" accept="image/png, image/jpeg" />
-              </ul>
+              <input type="file" accept="image/*" name="image" id="file" @change="loadFile" />
+              <label for="file" style="cursor: pointer;">Upload Photo/Video</label><br>
+            <img id="output" width="200" v-if="imageUrl" :src="imageUrl" />
             </div>
             <button>Post</button>
           </form>
         </section>
       </div>
     </div>
+
 </template>
 <script scoped>
+
+export default {
+  data() {
+    return {
+      imageUrl: null,
+    };
+  },
+  methods: {
+    loadFile(event) {
+      // const image = document.getElementById('output');
+      this.imageUrl = URL.createObjectURL(event.target.files[0]);
+    },
+  },
+};
+
+
 </script>
 <style scoped>
+
+.dummy{
+  padding: 70px;
+}
 *{
   margin: 0;
   padding: 0;

@@ -29,8 +29,8 @@
                 </div>
                 <div class="btns">
                     <div class="left">
-                        <img src="../assets/heart.png" alt="heart" class="heart" onclick="likeButton()">
-                        <img src="../assets/comment.png" alt="comment">
+                        <img src="../assets/heart.png" alt="heart" class="heart" @click="likeButton()">
+                        <img src="../assets/comment.png" alt="comment" @click="showComment()">
                         <img src="../assets/share.png" alt="share">
                     </div>
                     <div class="right">
@@ -43,27 +43,56 @@
                     {{ post.caption }}
                     <span>#{{ post.category }}</span>
                 </h4>
-                <h4 class="comments">View all {{ post.comments.length }} comments</h4>
+                <h4 class="comments" @click="showComment()">View all {{ post.comments.length }} comments</h4>
                 <div class="addComments">
                     <div class="userImg">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622" alt="user" class="cover">
                     </div>
                     <input type="text" class="text" placeholder="Add a comment...">
+                    <button class="cmt-btn">Comment</button>
                 </div>
                 <h5 class="postTime">5 hours ago</h5>
+                <div v-if="show">
+                <p v-for="comments in post.comments" :key="comments"><strong>{{ comments.userId }} </strong>  {{ comments.comment }}</p>
+            </div>
             </div>
            
 </body>
 </div>
 
-
-
-
-
-
-
-
 </template>
+
+
+
+<script>
+import { computed, defineComponent, ref } from 'vue';
+import useRootStore from '@/store/store.js'
+
+export default defineComponent({
+setup(){   
+    const rootStore = useRootStore()
+    // console.log(rootStore);
+    rootStore.FETCH_POST();
+    const posts = computed(() => rootStore.posts)
+    const noOfpost = ref(0);
+    const show = ref(false);
+
+    const showComment = () => {
+    if(show.value == false)
+                show.value = true;
+    else show.value = false
+    }
+
+    
+
+return{
+   posts,
+   noOfpost, showComment,show
+
+}}}
+)
+
+</script>
 <style scoped>
 
 *{
@@ -193,6 +222,22 @@ body{
 .addComments .text::placeholder{
     color: #777;
 }
+
+.cmt-btn{
+
+    background-color: #0095F6;
+    font-size: 12px;
+    border-radius: 5px;
+    padding: 8px ;
+    color: white;
+    border: none;
+
+}
+button:hover {
+    background-color: #97aedb;
+
+}
+
 .postTime{
     margin-top: 10px;
     font-weight: 500;
@@ -212,27 +257,3 @@ body{
 
 
 </style>
-<script>
-import { computed, defineComponent, ref } from 'vue';
-import useRootStore from '@/store/store.js'
-
-export default defineComponent({
-setup(){   
-    const rootStore = useRootStore()
-    // console.log(rootStore);
-    rootStore.FETCH_POST();
-    const posts = computed(() => rootStore.posts)
-    const noOfpost = ref(0);
-
-
-    
-    
-
-return{
-   posts,
-   noOfpost
-
-}}}
-)
-
-</script>

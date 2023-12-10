@@ -1,10 +1,23 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <RegistryPage></RegistryPage>
   </nav>
-  <router-view/>
 </template>
+
+
+<script>
+import RegistryPage from './components/RegistryPage.vue';
+
+export default {
+  name: 'App',
+  components: {
+    RegistryPage
+}
+}
+
+</script>
+
+
 
 <style>
 #app {

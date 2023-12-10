@@ -257,4 +257,3 @@ button:hover {
 
 
 </style>
-    rootStore.FETCH_POST();

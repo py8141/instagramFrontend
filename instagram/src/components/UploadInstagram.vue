@@ -3,7 +3,7 @@
       <div class="wrapper">
         <section class="post">
           <header>Upload Post</header>
-          <form action="#">
+          <div class="uploadPost">
             <div class="content">
               <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622" alt="logo">
               <div class="details">
@@ -12,12 +12,12 @@
             </div>
             <textarea placeholder="What's on your mind ?" spellcheck="false" required></textarea>
             <div class="options">
-              <input type="file" accept="image/*" name="image" id="file" @change="loadFile" />
+              <input type="file" accept="image/* | video/*" name="image" id="file" @change="handleFileChange" />
               <label for="file" style="cursor: pointer;">Upload Photo/Video</label><br>
             <img id="output" width="200" v-if="imageUrl" :src="imageUrl" />
             </div>
-            <button>Post</button>
-          </form>
+            <button @click = "uploadImage">Post</button>
+          </div>
         </section>
       </div>
     </div>
@@ -25,21 +25,62 @@
 </template>
 <script scoped>
 
-export default {
-  data() {
-    return {
-      imageUrl: null,
-    };
-  },
-  methods: {
-    loadFile(event) {
-      // const image = document.getElementById('output');
-      this.imageUrl = URL.createObjectURL(event.target.files[0]);
-    },
-  },
-};
+import storage from '@/firebase'
+import { ref } from 'vue';
+import usePostStore from '../store/PostStore';
+export default{
+  setup(){
+    const selectedFile = ref(null);
+    const postStore = usePostStore();
+    let type = ref('')
+    const caption = ref("");
+    const handleFileChange = (event)=>{
+      console.log(event)
+      const file = event.target.files[0];
+      console.log(file)
+      selectedFile.value = file;
+       }
+    const uploadImage = async () =>{
+      console.log(selectedFile.value)
+      console.log("inside")
+    if(selectedFile.value ){
+      const storageRef = await storage.StorageRef(storage.storage, selectedFile.value.name)
+      storage.uploadBytes(storageRef,selectedFile.value).then((snapshot)=>{
+        console.log("Uploaded a file ",snapshot)
+       storage.getDownloadURL(storage.StorageRef(storage.storage,selectedFile.value.name))
+       .then((url)=>{
+      type = selectedFile.value.type
+       console.log(selectedFile.value.type)
+          console.log(url)
+         addPost(url,type)
+        })
+        .catch(()=>{
 
+         })
+      })
+    }
+     const addPost = (url,type) =>{
+      const body = {
+      userId: "65754f9169e875213b5e3454",
+      username: 'john_doe',
+      timestamp: new Date(),
+      datatype: type,
+     data: url,
+    caption: "Hardcode",
+      }
+      console.log("Called function")
+        postStore.USER_POST(body)
+     }
 
+   }
+  return{
+    selectedFile,
+    caption,
+    handleFileChange,
+    uploadImage,
+   }    
+  }
+}
 </script>
 <style scoped>
 

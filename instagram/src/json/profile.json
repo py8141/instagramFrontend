@@ -1,0 +1,36 @@
+{
+    "userId": "user123",
+    "username": "john_doe",
+    "name": "John Doe",
+    "bio": "Passionate about web development.",
+    "profilePic": "https://images.unsplash.com/photo-1581403341630-a6e0b9d2d257?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=200&ixid=MnwxfDB8MXxyYW5kb218MHx8cG9ydHJhaXR8fHx8fHwxNzAyMTA1Nzk1&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=200",
+    "accountType": "Regular",
+    "visibility": "Public",
+    "followers": ["follower1", "follower2"],
+    "following": ["following1", "following2"],
+    "interests": ["JavaScript", "React", "Node.js"],
+    "requestsSent": [
+      {
+        "userId": "user456",
+        "userName": "friend1",
+        "timeStamp": "2023-01-01T12:00:00Z"
+      },
+      {
+        "userId": "user789",
+        "userName": "friend2",
+        "timeStamp": "2023-01-02T09:30:00Z"
+      }
+    ],
+    "requestsReceived": [
+      {
+        "userId": "user101",
+        "userName": "friend3",
+        "timeStamp": "2023-01-03T15:45:00Z"
+      },
+      {
+        "userId": "user202",
+        "userName": "friend4",
+        "timeStamp": "2023-01-04T08:20:00Z"
+      }
+    ]
+ }

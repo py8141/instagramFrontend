@@ -45,13 +45,14 @@
   </template>
    
   <script>
+
   import { ref, onMounted, onBeforeUnmount,onBeforeMount, computed,watch } from 'vue';
   import useRootStore from '../store/ProfilePage';
   import usePostStore from '../store/PostStore';
   import js from '@/components/PostInstagram.vue' 
   export default {
     setup() {
-      const rootStore = useRootStore();
+      const rootStore = useProfileStore();
       const postStore = usePostStore();
       let hoverTimer = null;
       const hoverDelay = 200;
@@ -139,7 +140,8 @@
     max-width: 75%;
     margin: auto;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    padding: 60px;
+    padding: 80px;
+
   }
    
   .top-row {

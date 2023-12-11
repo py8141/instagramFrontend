@@ -9,7 +9,7 @@
                         <div class="profileImg">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622" alt="user" class="cover">
                         </div>
-                        <h3>{{ post.username }}<br></h3>
+                        <h3 @click="goToUser(post.userId)">{{ post.username }}<br></h3>
                     </div>
                     <div class="dot">
                         <img src="../assets/dot.png" alt="dot">
@@ -18,7 +18,7 @@
                 <div class="imgBg">
 
                     <div v-if="post.datatype === 'image/jpeg'">
-                        <img :src="post.data" :alt="image" class= "cover">
+                        <img :src="post.data" class= "cover">
                     </div>
                     <div v-else-if="post.datatype === 'video'"> 
                      <iframe src="https://www.youtube.com/embed/HorXomQrOi8" class="cover"> 
@@ -61,6 +61,7 @@
 <script>
 import { computed, defineComponent, ref } from 'vue';
 import useRootStore from '@/store/store.js'
+import router from '@/router';
 
 export default defineComponent({
 setup(){   
@@ -71,6 +72,10 @@ setup(){
     const posts = computed(() => rootStore.posts)
     const noOfpost = ref(0);
 
+    const goToUser = ((userId)=>{
+        console.log(userId);
+        router.push(`/profile/${userId}`)
+    })
     const likeButton = ((postId)=>{
         console.log(postId);
         let likeObject ={
@@ -87,7 +92,8 @@ setup(){
 return{
    posts,
    noOfpost,
-   likeButton
+   likeButton,
+   goToUser
    
 
 }}}

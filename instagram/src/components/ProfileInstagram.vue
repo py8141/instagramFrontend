@@ -128,7 +128,7 @@
     max-width: 75%;
     margin: auto;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    padding: 60px;
   }
    
   .top-row {
@@ -268,6 +268,7 @@
     .left-column,
     .right-column {
       flex: 100%;
+      margin-top: 0;
     }
    
     .avatar {
@@ -276,13 +277,17 @@
     }
    
     .bottom-row {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(1, 1fr);
     }
   }
    
   @media (max-width: 480px) {
     .profile {
       max-width: 100%;
+      padding : 10%;
+    }
+    .user-info{
+        padding-top: 60px;
     }
    
     .bottom-row {

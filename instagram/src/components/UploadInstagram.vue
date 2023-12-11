@@ -12,36 +12,76 @@
             </div>
             <textarea placeholder="What's on your mind ?" spellcheck="false" required></textarea>
             <div class="options">
-              <input type="file" accept="image/*" name="image" id="file" @change="loadFile" />
+              <input type="file" accept="image/*" name="image" id="file" @change="loadFile"   />
               <label for="file" style="cursor: pointer;">Upload Photo/Video</label><br>
             <img id="output" width="200" v-if="imageUrl" :src="imageUrl" />
             </div>
             <button>Post</button>
           </form>
         </section>
+        <!-- <div class="file-upload-container">
+                <input type="file" accept="image/*,video/*" name="media" id="file" @change="uploadFile"/>
+                <label for="file" class="upload-label">Upload Image or Video (max 5MB)</label>
+                <img id="output" class="uploaded-image" v-if="imageUrl" :src="imageUrl" />
+         </div> -->
       </div>
     </div>
 
 </template>
 <script scoped>
 
-export default {
-  data() {
-    return {
-      imageUrl: null,
-    };
-  },
-  methods: {
-    loadFile(event) {
-      // const image = document.getElementById('output');
-      this.imageUrl = URL.createObjectURL(event.target.files[0]);
-    },
-  },
-};
+// export default {
+//   data() {
+//     return {
+//       imageUrl: null,
+//     };
+//   },
+//   methods: {
+//     uploadFile(event) {
+//       const file = event.target.files[0];
+
+//       if (file) {
+//         // Check if the file size is within the limit (5MB)
+//         if (file.size <= 5 * 1024 * 1024) {
+//           this.imageUrl = URL.createObjectURL(file);
+//         } else {
+//           alert('File size exceeds the limit. Please choose a file up to 5MB.');
+//           // Clear the file input if the file size exceeds the limit
+//           event.target.value = null;
+//         }
+//       }
+//     },
+//   },
+// };
 
 
 </script>
 <style scoped>
+
+
+
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.upload-label {
+  cursor: pointer;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.uploaded-image {
+  width: 200px;
+  margin-top: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
 .dummy{
   padding: 70px;

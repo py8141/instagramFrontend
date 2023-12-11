@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import {  ref } from "vue";
  
-const useRootStore = defineStore('profile', () => {
+const useProfileStore = defineStore('profile', () => {
     const profile = ref({});
     const FETCH_PROFILE = async () => {
     var json_data = require('../json/profile.json');
@@ -17,4 +17,4 @@ const useRootStore = defineStore('profile', () => {
     };
 });
  
-export default useRootStore;
+export default useProfileStore;

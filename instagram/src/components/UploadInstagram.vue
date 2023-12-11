@@ -1,36 +1,38 @@
 <template>
- <div class="container">
-      <div class="wrapper">
-        <section class="post">
-          <header>Upload Post</header>
-          <div class="uploadPost">
-            <div class="content">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622" class ="profile-img" alt="logo">
-              <div class="details">
-                <p>User_Name</p>
-              </div>
+  <div class="container">
+    <div class="wrapper">
+      <section class="post">
+        <header>Upload Post</header>
+        <div class="uploadPost">
+          <div class="content">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622"
+              class="profile-img" alt="logo">
+            <div class="details">
+              <p>User_Name</p>
             </div>
-            <textarea class ="caption" placeholder="What's on your mind ?" spellcheck="false" required></textarea>
-            <div class="options">
-
-              <label for="file" style="cursor: pointer;">Upload Photo/Video
-              <input type="file" accept="image/* | video/*" name="image" id="file" @change="handleFileChange"  />
-             </label> <br>
-            <img id="output" class = "selectedImg" width="200" v-if="imageUrl" :src="imageUrl" />
-
-
-            </div>
-            <button @click = "uploadImage" class="post-button">Post</button>
           </div>
-        </section>
-        <!-- <div class="file-upload-container">
+          <textarea class="caption" placeholder="What's on your mind ?" spellcheck="false" required
+            v-model="newCaption"></textarea>
+          <div class="options">
+
+            <label for="file" style="cursor: pointer;">Upload Photo/Video
+              <input type="file" accept="image/* | video/*" name="image" id="file" @change="handleFileChange" />
+            </label> <br>
+            <img id="output" class="selectedImg" width="200" v-if="imageUrl" :src="imageUrl" />
+
+
+          </div>
+          <button @click="uploadImage" class="post-button">Post</button>
+        </div>
+      </section>
+      <!-- <div class="file-upload-container">
                 <input type="file" accept="image/*,video/*" name="media" id="file" @change="uploadFile"/>
                 <label for="file" class="upload-label">Upload Image or Video (max 5MB)</label>
                 <img id="output" class="uploaded-image" v-if="imageUrl" :src="imageUrl" />
          </div> -->
-      </div>
     </div>
-
+  </div>
 </template>
 <script scoped>
 
@@ -38,59 +40,63 @@
 import storage from '@/firebase'
 import { ref } from 'vue';
 import usePostStore from '../store/PostStore';
-export default{
-  setup(){
+import router from '@/router';
+export default {
+  setup() {
     const selectedFile = ref(null);
     const postStore = usePostStore();
     let type = ref('')
+    const newCaption = ref('')
     const caption = ref("");
 
 
-    const handleFileChange = (event)=>{
+    const handleFileChange = (event) => {
       const file = event.target.files[0];
       console.log(file)
-      
+
       selectedFile.value = file;
-       }
-    const uploadImage = async () =>{
+    }
+    const uploadImage = async () => {
       console.log(selectedFile.value)
       console.log("inside")
-    if(selectedFile.value ){
-      const storageRef = await storage.StorageRef(storage.storage, selectedFile.value.name)
-      storage.uploadBytes(storageRef,selectedFile.value).then((snapshot)=>{
-        console.log("Uploaded a file ",snapshot)
-       storage.getDownloadURL(storage.StorageRef(storage.storage,selectedFile.value.name))
-       .then((url)=>{
-      type = selectedFile.value.type
-       console.log(selectedFile.value.type)
-          console.log(url)
-         addPost(url,type)
+      if (selectedFile.value) {
+        const storageRef = await storage.StorageRef(storage.storage, selectedFile.value.name)
+        storage.uploadBytes(storageRef, selectedFile.value).then((snapshot) => {
+          console.log("Uploaded a file ", snapshot)
+          storage.getDownloadURL(storage.StorageRef(storage.storage, selectedFile.value.name))
+            .then((url) => {
+              type = selectedFile.value.type
+              console.log(selectedFile.value.type)
+              router.push('/postInstagram')
+              console.log(url)
+              addPost(url, type)
+            })
+            .catch(() => {
+
+            })
         })
-        .catch(()=>{
-
-         })
-      })
-    }
-     const addPost = (url,type) =>{
-      const body = {
-      userId: "65754f9169e875213b5e3454",
-      username: 'john_doe',
-      timestamp: new Date(),
-      datatype: type,
-     data: url,
-    caption: "Hardcode",
       }
-      console.log("Called function")
+      const addPost = (url, type) => {
+        const body = {
+          userId: "65754f9169e875213b5e3454",
+          username: 'john_doe',
+          timestamp: new Date(),
+          datatype: type,
+          data: url,
+          caption: newCaption.value,
+        }
+        console.log("Called function")
         postStore.USER_POST(body)
-     }
+      }
 
-   }
-  return{
-    selectedFile,
-    caption,
-    handleFileChange,
-    uploadImage,
-    }    
+    }
+    return {
+      selectedFile,
+      caption,
+      handleFileChange,
+      uploadImage,
+      newCaption,
+    }
   }
 }
 </script>
@@ -104,11 +110,12 @@ export default{
   font-family: 'Poppins', sans-serif;
 }
 
-.selectedImg{
+.selectedImg {
   max-width: 100%;
   margin-top: 10px;
 
 }
+
 body {
   display: flex;
   align-items: center;
@@ -158,9 +165,11 @@ body {
   text-align: center;
   border-bottom: 1px solid #bfbfbf;
 }
-.profile-img{
+
+.profile-img {
   max-height: 60px;
 }
+
 .uploadPost {
   padding: 16px;
 }
@@ -234,21 +243,19 @@ body {
   transition: all 0.3s ease;
 }
 
-.uploadPost textarea:valid ~ .post-button {
+.uploadPost textarea:valid~.post-button {
   color: #fff;
   cursor: pointer;
   background: #4599FF;
 }
 
-.uploadPost textarea:valid ~ .post-button:hover {
+.uploadPost textarea:valid~.post-button:hover {
   background: #1a81ff;
 }
 
 .uploadPost .post-button:hover {
   background: #1a81ff;
 }
-
-
 </style>
 
 

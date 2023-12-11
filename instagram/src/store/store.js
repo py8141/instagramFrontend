@@ -56,16 +56,14 @@ import {  ref } from "vue";
             console.error('Error:', error.message);
         }
     };
-);
-
-
     return {
         posts,
         FETCH_POST, 
         UPDATE_COMMENT,
         LIKE_POST
     
-   } })
+   } 
+});
 
     export default useRootStore;
 

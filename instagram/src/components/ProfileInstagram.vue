@@ -5,20 +5,20 @@
           <div class="user-info">
             <img :src="user?.profilePic" alt="Profile Picture" class="avatar" />
             <div class="user-details">
-              <h2>{{ userData.userName }}</h2>
-              <p>{{  userData.bio}}</p>
+              <h2>{{ userData?.userName }}</h2>
+              <p>{{  userData?.bio}}</p>
             </div>
           </div>
         </div>
         <div class="right-column">
           <div class="top-right">
-            <center><h2>{{ userData.name }}</h2></center>
+            <center><h2>{{ userData?.name }}</h2></center>
           </div>
           <div class="bottom-right">
             <div class="user-stats">
               <p><strong>{{ posters.length }}</strong> Posts</p>
-              <p><strong>{{ userData.followers.length }}</strong> Followers</p>
-              <p><strong>{{ userData.following.length }}</strong> Following</p>
+              <p><strong>{{ userData?.followers?.length }}</strong> Followers</p>
+              <p><strong>{{ userData?.following?.length }}</strong> Following</p>
             </div>
             <button class="follow-button">Follow</button>
           </div>
@@ -37,8 +37,22 @@
           @mouseenter="startHoverTimer(post)"
           @mouseleave="clearHoverTimer"
         >
-          <img :src="post.data" alt="Post Image" class="post-image" @click="showFullImage(post)" />
-          <p class="post-caption">{{ post.caption }}</p>
+
+                    <div v-if="post.datatype.includes('image')">
+                        <img :src="post.data" alt="image" class="post-image" @click="showFullImage(post)">
+                        <p class="post-caption">{{ post.caption }}</p>
+                    </div>
+                    <div v-else-if="post.datatype.includes('video')">
+                        <video alt="video" class="post-video" muted autoplay @click="showFullImage(post)" width="300" height="250">
+                            <source :src="post.data" type="video/mp4">
+                            <p class="post-caption">{{ post.caption }}</p>
+                        </video>
+
+                    </div>
+
+
+          <!-- <img :src="post.data" alt="Post Image" class="post-image" @click="showFullImage(post)" />
+          <p class="post-caption">{{ post.caption }}</p> -->
         </div>
       </div>
     </div>
@@ -47,12 +61,12 @@
   <script>
 
   import { ref, onMounted, onBeforeUnmount,onBeforeMount, computed,watch } from 'vue';
-  import useRootStore from '../store/ProfilePage';
+  import useProfileStore from '../store/ProfilePage';
   import usePostStore from '../store/PostStore';
   import js from '@/components/PostInstagram.vue' 
   export default {
     setup() {
-      const rootStore = useProfileStore();
+      const prfileStore = useProfileStore();
       const postStore = usePostStore();
       let hoverTimer = null;
       const hoverDelay = 200;
@@ -97,9 +111,9 @@
         // Add logic to handle resizing if needed
       }
 
-      const userProfile = computed(() => rootStore.userDetails) 
+      const userProfile = computed(() => prfileStore.userDetails) 
       const userData = computed(() => userProfile.value.data)
-      const userPost = computed(()=> rootStore.userPosts)
+      const userPost = computed(()=> prfileStore.userPosts)
 
      watch(userProfile,()=>{
       console.log("hiii",userProfile.value.data);
@@ -109,11 +123,11 @@
      })
 
       onBeforeMount (()=>{
-      rootStore.FETCH_USERDETAILS("65754f9169e875213b5e3454")
-      rootStore.FETCH_USERPOSTS("65754f9169e875213b5e3454")
+      prfileStore.FETCH_USERDETAILS("65754f9169e875213b5e3454")
+      prfileStore.FETCH_USERPOSTS("65754f9169e875213b5e3454")
        })
 
-      const user = computed(() => rootStore.profile);
+      const user = computed(() => prfileStore.profile);
       const posters = computed(() => postStore.posters);
    
       return {

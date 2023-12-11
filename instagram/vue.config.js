@@ -4,7 +4,7 @@ module.exports = defineConfig({
   devServer: {
     proxy:{
       "/insta": {
-        target: "http://localhost:9000/",
+        target: "http://10.20.3.160:9000/",
         changeOrigin: true
       },
     }

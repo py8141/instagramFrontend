@@ -5,7 +5,7 @@ const useSearchStore = defineStore('search', () => {
     const search = ref({});
     const FETCH_SEARCH = async (searchTerm) => {
         // const uri = searchTerm ? `{searchTearm}`:"";
-        const res = await fetch("/insta/search?text=" + searchTerm);
+        const res = await fetch("/insta/search/search?text=" + searchTerm);
         const parsedResponse = await res.json();
         search.value = parsedResponse
     };

@@ -1,3 +1,5 @@
+
+
 <template>
   <div class="bg-img">
     <div class="content">
@@ -65,8 +67,6 @@
     justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap;
-    max-width: 800px; /* Adjusted max-width for better laptop display */
-    margin: 0 auto; /* Center the content */
   }
 
   .form-container {
@@ -74,15 +74,14 @@
   }
 
   .profile-container {
-    width: 50%;
+    width: 30%;
     text-align: center;
     position: relative;
-    margin-top: 16px;
   }
 
   .bg-img {
     background: url(../assets/bg5.jpeg);
-    height: 70vh; /* Adjusted height for better laptop display */
+    height: 90vh;
     background-size: cover;
     background-position: center;
   }
@@ -104,7 +103,7 @@
     z-index: 999;
     text-align: center;
     padding: 60px 32px;
-    width: 100%;
+    width: 700px;
     transform: translate(-50%, -50%);
     background: rgba(255, 255, 255, 0.04);
     box-shadow: -1px 4px 28px 0px rgba(0, 0, 0, 0.75);
@@ -131,7 +130,6 @@
     width: 100%;
     display: flex;
     background: rgba(255, 255, 255, 0.94);
-    margin-bottom: 16px;
   }
 
   .field input,
@@ -152,9 +150,10 @@
 
   .field.space.button {
     text-align: center;
-    width: 100%;
+    width: 30%;
+    margin: 0 auto;
     margin-top: 16px;
-    border-radius: 7px;
+    border-radius: 50%;
   }
 
   .field input[type="submit"] {
@@ -174,7 +173,7 @@
 
   .profile-container {
     position: relative;
-    width: 100%;
+    width: 30%;
     text-align: center;
   }
 
@@ -212,19 +211,93 @@
     display: none;
   }
 
-  @media screen and (max-width: 768px) {
-    .main-container {
-      flex-direction: column;
-      align-items: center;
-    }
 
-    .form-container,
-    .profile-container {
-      width: 90%;
-    }
+  @media (max-width: 1024px) {
 
-    .field.space.button {
-      width: 90%;
-    }
-  }
+.content {
+
+  width: 80%;
+
+  padding: 50px 32px;
+
+}
+
+}
+
+
+
+@media (max-width: 768px) {
+
+.content {
+
+  width: 90%;
+
+  padding: 40px 20px;
+
+}
+
+
+
+.main-container {
+
+  flex-direction: column;
+
+  align-items: center;
+
+}
+
+.field{
+  width:70%;
+  align-items: center;
+  transform: translateX(15%);
+}
+
+
+
+.form-container,
+
+.profile-container {
+
+  width: 100%;
+
+}
+
+.profile-image {
+
+  width: 30%;
+
+  height: auto;
+
+  border-radius: 50%;
+
+  overflow: hidden;
+
+  object-fit: cover;
+  transform: translateY(10px);
+
+}
+
+.plus-icon {
+
+  right: 36%;
+
+  transform: translateX(50%);
+  font-size: 20px;
+
+}
+
+}
+
+
+
+@media (max-width: 480px) {
+
+.content {
+
+  width: 100%;
+
+  padding: 30px 16px;
+
+}
+}
 </style>

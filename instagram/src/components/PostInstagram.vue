@@ -1,15 +1,16 @@
 <template>
 <div  v-for="post in posts"  :key="post"  >
 <body>
-        
-        <div class="card">
+     <div class="card">
                 <div class="top">
                     <div class="userDeatils">
                         <div class="profileImg">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622" alt="user" class="cover">
                         </div>
-                        <h3>{{ post.username }}<br></h3>
+
+                        <h3 @click="goToProfile(post.userId)">{{ post.username }}<br></h3>
                         <!-- {{ post.postId }} -->
+
                     </div>
                     <div class="dot">
                         <img src="../assets/dot.png" alt="dot">
@@ -274,8 +275,37 @@ button:hover {
 }
 
 
-
-
-
-
 </style>
+<script>
+
+import { computed, defineComponent, ref } from 'vue';
+import useRootStore from '@/store/store.js'
+
+export default defineComponent({
+setup(){   
+    const rootStore = useRootStore()
+
+    const userId = ref('')
+
+    rootStore.FETCH_POST();
+
+    const posts = computed(() => rootStore.posts)
+    
+    const noOfpost = ref(0);
+    const goToProfile = (userIdd)=>{
+          userId.value = userIdd
+          console.log(userId.value)
+          
+    }
+    
+return{
+   posts,
+   noOfpost,
+   userId,
+   goToProfile
+
+}}}
+)
+
+</script>
+

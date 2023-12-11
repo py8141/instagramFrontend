@@ -5,21 +5,18 @@
       <div v-if="searchText || searchBarActive" class="clear-text" @click.stop="clearText">Clear</div>
     </div>
     <div class="content" :class="{ active: searchBarActive }" @click="handleClickOutside">
-      <div v-for="(result, resultIndex) in search" :key="resultIndex" class="result">
-        <!-- Left column with centered circle -->
-        <div class="left-column">
-          <div class="circle" :style="{ backgroundImage: `url(${'https://source.unsplash.com/800x600/?nature'})` }"></div>
-        </div>
-        <!-- Right column with user information -->
-        <div class="right-column">
-          <div class="user-info">
-            <div class="user-name">{{ result.userName }}</div>
-            <div class="name">{{ result.name }}</div>
+      <div v-for="(result, resultIndex) in search.slice(0,5)" :key="resultIndex" class="result">
+          <div class="left-column">
+            <div class="circle" :style="{ backgroundImage: `url(${'https://source.unsplash.com/800x600/?nature'})` }"></div>
           </div>
-          <div class="bio">{{ result.bio }}</div>
-        </div>
-        <!-- Border line between results -->
-        <div class="result-border"></div>
+          <div class="right-column">
+            <div class="user-info">
+              <div class="user-name"><b>{{ result.userName }}</b></div>
+              <div class="name">{{ result.name }}</div>
+              <div class="bio">{{ result.bio }}</div>
+            </div>
+          </div>
+          <div class="result-border"></div>
       </div>
     </div>
   </div>
@@ -30,131 +27,133 @@ import { ref, onMounted, onUnmounted, computed } from 'vue';
 import useSearchStore from '../store/search';
 import debounce from 'lodash.debounce';
 
-export default {
-  setup() {
-    const searchBarActive = ref(false);
-    const searchText = ref("");
+const setup = () => {
+  const searchBarActive = ref(false);
+  const searchText = ref("");
 
-    const rootStore = useSearchStore();
-    rootStore.FETCH_SEARCH();
+  const rootStore = useSearchStore();
+  const onSearch = debounce(() => {
+    rootStore.FETCH_SEARCH(searchText.value);
+  }, 1000);
 
-    const search = computed(() => {
-      return rootStore.search;
-    });
+  const search = computed(() => rootStore.search);
 
-    const onSearch = debounce(() => {
-      rootStore.FETCH_SEARCH(searchText.value);
-    }, 1000);
 
-    const toggleSearchBar = () => {
-      searchBarActive.value = !searchBarActive.value;
-    };
+  const toggleSearchBar = () => {
+    searchBarActive.value = !searchBarActive.value;
+  };
 
-    const handleClickOutside = (event) => {
-      if (!document.querySelector('.search-bar').contains(event.target)) {
-        searchBarActive.value = false;
-      }
-    };
+  const handleClickOutside = (event) => {
+    if (!document.querySelector('.search-bar').contains(event.target)) {
+      searchBarActive.value = false;
+    }
+  };
 
-    const clearText = () => {
-      searchText.value = "";
-      onSearch();
-    };
+  const clearText = () => {
+    searchText.value = "";
+    onSearch();
+  };
 
-    onMounted(() => {
-      document.addEventListener('click', handleClickOutside);
-    });
+  onMounted(() => {
+    onSearch();
+    document.addEventListener('click', handleClickOutside);
+  });
 
-    onUnmounted(() => {
-      document.removeEventListener('click', handleClickOutside);
-    });
+  onUnmounted(() => {
+    document.removeEventListener('click', handleClickOutside);
+  });
 
-    return {
-      searchBarActive,
-      searchText,
-      toggleSearchBar,
-      search,
-      onSearch,
-      clearText,
-    };
-  },
+  return {
+    searchBarActive,
+    searchText,
+    toggleSearchBar,
+    search,
+    onSearch,
+    clearText,
+  };
 };
+
+export default { setup };
 </script>
 
 <style scoped>
   .search-bar {
     top: 60px;
-    width: 60%; /* Adjusted width to 60% */
+    width: 60%;
     margin: 0 auto;
     padding: 15px;
-    border-radius: 25px; /* Increased border radius for a smoother appearance */
-    background-color: #f5f5f5; /* Light background color */
+    border-radius: 25px;
+    background-color: #f5f5f5;
     position: relative;
     height: 50px;
-    transition: background-color 0.3s, box-shadow 0.3s; /* Added box-shadow transition */
+    transition: background-color 0.3s, box-shadow 0.3s;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Added box shadow for a lift effect */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   .search-input {
-    width: 70%; /* Adjusted width to 70% */
+    width: 70%;
     height: 40px;
     padding: 10px;
     border: none;
     border-radius: 10px;
     outline: none;
-    font-size: 16px; /* Adjusted font size for better visibility */
-    background-color: #fff; /* White background for the input */
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Added box shadow for a subtle lift effect */
+    font-size: 16px;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   .search-input::placeholder {
-    color: #aaa; /* Placeholder text color */
+    color: #aaa;
   }
 
   .clear-text {
     cursor: pointer;
-    color: #333; /* Clear text color */
-    margin-left: 10px; /* Adjusted left margin for the "Clear" text */
+    color: #333;
+    margin-left: 10px;
   }
 
   .content {
     top: 300px;
     transition: background-color 0.3s;
     margin-top: 80px;
+    width: 60%;
+    margin: 100px auto;
+    box-shadow: 0px 0px 10px rgba(255, 253, 253, 0.2);
   }
 
   .result {
     margin-bottom: 25px;
+    border-radius: 5%;
     position: relative;
-    display: flex; /* Make the result a flex container */
-    transition: transform 0.3s ease; /* Added transform transition effect */
+    display: flex;
+    transition: transform 0.3s ease;
   }
 
   .result:hover {
     cursor: pointer;
-    transform: scale(1.05); /* Scale up on hover */
+    transform: scale(1.05);
   }
 
   .left-column {
-    flex: 0 0 20%; /* 20% width for the left column */
+    flex: 0 0 20%;
   }
 
   .right-column {
-    flex: 0 0 80%; /* 80% width for the right column */
-    padding-left: 10px; /* Adjust padding for separation between columns */
+    flex: 0 0 80%;
+    padding-left: 10px;
   }
 
   .circle {
-    width: 60px; /* Increased diameter */
-    height: 60px; /* Increased diameter */
+    width: 60px;
+    height: 60px;
     background-color: transparent;
-    border-radius: 50%; /* Make it a circle */
-    margin: 0 auto; /* Center the circle within the left column */
-    background-size: cover; /* Ensure the background image covers the entire circle */
-    background-position: center; /* Center the background image within the circle */
+    border-radius: 50%;
+    margin: 0 auto;
+    background-size: cover;
+    background-position: center;
   }
 
   .result-border {
@@ -175,7 +174,7 @@ export default {
   }
 
   .bio {
-    margin-top: 10px; /* Adjust the margin for bio */
-    font-size: 15px; /* Adjust the font size for bio */
+    margin-top: 10px;
+    font-size: 15px;
   }
 </style>

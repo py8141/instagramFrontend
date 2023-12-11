@@ -3,6 +3,7 @@
 <body>
         
         <div class="card">
+            <!-- {{ posts }} -->
                 <div class="top">
                     <div class="userDeatils">
                         <div class="profileImg">
@@ -16,7 +17,7 @@
                 </div>
                 <div class="imgBg">
 
-                    <div v-if="post.datatype === 'image'">
+                    <div v-if="post.datatype === 'image/jpeg'">
                         <img :src="post.data" :alt="image" class= "cover">
                     </div>
                     <div v-else-if="post.datatype === 'video'"> 
@@ -29,7 +30,7 @@
                 </div>
                 <div class="btns">
                     <div class="left">
-                        <img src="../assets/heart.png" alt="heart" class="heart" onclick="likeButton()">
+                        <img src="../assets/heart.png" alt="heart" class="heart" @click="likeButton(post.postId)">
                         <img src="../assets/comment.png" alt="comment">
                         <img src="../assets/share.png" alt="share">
                     </div>
@@ -50,20 +51,49 @@
                     </div>
                     <input type="text" class="text" placeholder="Add a comment...">
                 </div>
-                <h5 class="postTime">5 hours ago</h5>
+                <h5 class="postTime">{{ post.timestamp }}</h5>
             </div>
            
 </body>
 </div>
 
-
-
-
-
-
-
-
 </template>
+<script>
+import { computed, defineComponent, ref } from 'vue';
+import useRootStore from '@/store/store.js'
+
+export default defineComponent({
+setup(){   
+
+    const rootStore = useRootStore()
+    // console.log(rootStore);
+    rootStore.FETCH_POST();
+    const posts = computed(() => rootStore.posts)
+    const noOfpost = ref(0);
+
+    const likeButton = ((postId)=>{
+        console.log(postId);
+        let likeObject ={
+            "userId" : "6575512869e875213b5e3455",
+            "posId" : postId,
+            "timestamp" : new Date().toISOString()
+        }
+        console.log(likeObject);
+        rootStore.LIKE_POST(likeObject,postId);
+        location.reload();
+
+    })
+
+return{
+   posts,
+   noOfpost,
+   likeButton
+   
+
+}}}
+)
+
+</script>
 <style scoped>
 
 *{
@@ -212,27 +242,3 @@ body{
 
 
 </style>
-<script>
-import { computed, defineComponent, ref } from 'vue';
-import useRootStore from '@/store/store.js'
-
-export default defineComponent({
-setup(){   
-    const rootStore = useRootStore()
-    // console.log(rootStore);
-    rootStore.FETCH_POST();
-    const posts = computed(() => rootStore.posts)
-    const noOfpost = ref(0);
-
-
-    
-    
-
-return{
-   posts,
-   noOfpost
-
-}}}
-)
-
-</script>

@@ -6,6 +6,7 @@
                 <router-link to="/profile">PROFILE</router-link>
                 <router-link to="/upload">UPLOAD</router-link>
                 <router-link to="/activity">ACTIVITY</router-link>
+                <!-- <DarkModeToggle :darkModeState="darkModeState" :toggleDarkMode="toggleDarkMode" /> -->
         </div>
 
         <div class="content">
@@ -14,8 +15,10 @@
         </div>
 </div>
 </template>
+
 <script>
 </script>
+
 <style scoped>
 
 .main-content{

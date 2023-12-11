@@ -20,6 +20,9 @@
               <p><strong>{{ userData?.followers?.length }}</strong> Followers</p>
               <p><strong>{{ userData?.following?.length }}</strong> Following</p>
             </div>
+            <!-- <button v-if="isFollowing(user.userId)" @click="toggleFollow(result.userId)" class="follow-button">Following</button>
+            <button v-else @click="toggleFollow(user.userId)" class="follow-button">Follow</button> -->
+
             <button class="follow-button">Follow</button>
           </div>
         </div>
@@ -73,8 +76,17 @@
       const showFullImagePopup = ref(false);
       const fullImageSrc = ref('');
       const fullImageComment = ref('');
+
+      const isFollowing = (userId) => {
+        return rootStore.followers.includes(userId);
+      };
+
+      const toggleFollow = (userId) => {
+        console.log(`Toggle follow for user with ID ${userId}`);
+      };
       const userId = js.userId
       console.log('Hiis',userId)
+      
       function startHoverTimer(post) {
         hoverTimer = setTimeout(() => {
           showFullImagePopup.value = true;
@@ -140,6 +152,9 @@
         fullImageComment,
         user,
         posters,
+
+        isFollowing,
+        toggleFollow
         userProfile,
         userData,
         userPost

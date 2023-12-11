@@ -13,7 +13,7 @@ const useRootStore = defineStore('profile', () => {
 
 
  const FETCH_USERDETAILS = async(userId) => {
- const targetUrl = `http://localhost:8090/users/getUserDetails?userId=${userId}`;
+ const targetUrl = `http://localhost:8090/insta/users/getUserDetails?userId=${userId}`;
   const apiKey = "Yes";
   const requestOptions = {
     method: 'GET',

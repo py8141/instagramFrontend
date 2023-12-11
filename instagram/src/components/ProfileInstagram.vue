@@ -48,7 +48,7 @@
   import { ref, onMounted, onBeforeUnmount,onBeforeMount, computed,watch } from 'vue';
   import useRootStore from '../store/ProfilePage';
   import usePostStore from '../store/PostStore';
-   
+  import js from '@/components/PostInstagram.vue' 
   export default {
     setup() {
       const rootStore = useRootStore();
@@ -58,7 +58,8 @@
       const showFullImagePopup = ref(false);
       const fullImageSrc = ref('');
       const fullImageComment = ref('');
-   
+      const userId = js.userId
+      console.log('Hiis',userId)
       function startHoverTimer(post) {
         hoverTimer = setTimeout(() => {
           showFullImagePopup.value = true;
@@ -105,11 +106,8 @@
      watch(userPost,()=>{
       console.log("Nooos",userPost.value.data);
      })
-    //  watch(userData,()=>{
-    //   console.log("meeee",userData.value);
-    //  })
+
       onBeforeMount (()=>{
-      console.log("ss")
       rootStore.FETCH_USERDETAILS("65754f9169e875213b5e3454")
       rootStore.FETCH_USERPOSTS("65754f9169e875213b5e3454")
        })

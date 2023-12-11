@@ -5,18 +5,19 @@
           <header>Upload Post</header>
           <div class="uploadPost">
             <div class="content">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622" alt="logo">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622" class ="profile-img" alt="logo">
               <div class="details">
                 <p>User_Name</p>
               </div>
             </div>
-            <textarea placeholder="What's on your mind ?" spellcheck="false" required></textarea>
+            <textarea class ="caption" placeholder="What's on your mind ?" spellcheck="false" required></textarea>
             <div class="options">
-              <input type="file" accept="image/* | video/*" name="image" id="file" @change="handleFileChange" />
-              <label for="file" style="cursor: pointer;">Upload Photo/Video</label><br>
-            <img id="output" width="200" v-if="imageUrl" :src="imageUrl" />
+              <label for="file" style="cursor: pointer;">Upload Photo/Video
+              <input type="file" accept="image/* | video/*" name="image" id="file" @change="handleFileChange"  />
+             </label> <br>
+            <img id="output" class = "selectedImg" width="200" v-if="imageUrl" :src="imageUrl" />
             </div>
-            <button @click = "uploadImage">Post</button>
+            <button @click = "uploadImage" class="post-button">Post</button>
           </div>
         </section>
       </div>
@@ -34,10 +35,11 @@ export default{
     const postStore = usePostStore();
     let type = ref('')
     const caption = ref("");
+
     const handleFileChange = (event)=>{
-      console.log(event)
       const file = event.target.files[0];
       console.log(file)
+      
       selectedFile.value = file;
        }
     const uploadImage = async () =>{
@@ -78,11 +80,171 @@ export default{
     caption,
     handleFileChange,
     uploadImage,
-   }    
+    }    
   }
 }
 </script>
+
+
 <style scoped>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.selectedImg{
+  max-width: 100%;
+  margin-top: 10px;
+
+}
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200vh;
+  background: linear-gradient(#00C6FF, #0078FF);
+}
+
+::selection {
+  color: #fff;
+  background: #1a81ff;
+}
+
+.container {
+  width: 400px;
+  height: 480px;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 10px;
+  transition: height 0.2s ease;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.container.active {
+  height: 790px;
+}
+
+.container .wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container .wrapper section {
+  width: 100%;
+}
+
+.container img {
+  cursor: pointer;
+}
+
+.post header {
+  font-size: 22px;
+  font-weight: 600;
+  padding: 17px 0;
+  text-align: center;
+  border-bottom: 1px solid #bfbfbf;
+}
+.profile-img{
+  max-height: 60px;
+}
+.uploadPost {
+  padding: 16px;
+}
+
+.uploadPost textarea {
+  width: 100%;
+  outline: none;
+  border: none;
+  resize: none;
+  font-size: 18px;
+  margin-top: 30px;
+  min-height: 80px;
+}
+
+.uploadPost textarea::placeholder {
+  color: #858585;
+}
+
+.uploadPost textarea:focus::placeholder {
+  color: #b3b3b3;
+}
+
+.uploadPost .options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 57px;
+  margin: 15px 0;
+  padding: 0 15px;
+  border-radius: 7px;
+  border: 1px solid #B9B9B9;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.uploadPost .options p {
+  color: #595959;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: default;
+}
+
+.uploadPost .options .list {
+  list-style: none;
+}
+
+.uploadPost .options .list li {
+  height: 42px;
+  width: 42px;
+  margin: 0 -1px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.uploadPost .options .list li:hover {
+  background: #f0f1f4;
+}
+
+.uploadPost .options .list li img {
+  width: 23px;
+}
+
+.uploadPost .post-button {
+  height: 53px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  width: 300px;
+  cursor: pointer;
+  border-radius: 7px;
+  background: #e2e5e9;
+  transition: all 0.3s ease;
+}
+
+.uploadPost textarea:valid ~ .post-button {
+  color: #fff;
+  cursor: pointer;
+  background: #4599FF;
+}
+
+.uploadPost textarea:valid ~ .post-button:hover {
+  background: #1a81ff;
+}
+
+.uploadPost .post-button:hover {
+  background: #1a81ff;
+}
+
+
+</style>
+
+
+
+<!-- <style scoped>
+
 
 .dummy{
   padding: 70px;
@@ -97,7 +259,7 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: 200vh;
   background: linear-gradient(#00C6FF, #0078FF);
 }
 ::selection{
@@ -148,6 +310,7 @@ body{
   display: flex;
   align-items: center;
 }
+
 .post form .content img{
   cursor: default;
   max-width: 52px;
@@ -172,24 +335,24 @@ form .content .details p{
   background: #E4E6EB;
   justify-content: space-between;
 }
-form :where(textarea, button){
+.uploadPost :where(textarea){
   width: 100%;
   outline: none;
   border: none;
 }
-form textarea{
+.uploadPost textarea{
   resize: none;
   font-size: 18px;
   margin-top: 30px;
-  min-height: 100px;
+  min-height: 80px;
 }
-form textarea::placeholder{
+.uploadPost textarea::placeholder{
   color: #858585;
 }
-form textarea:focus::placeholder{
+.uploadPost textarea:focus::placeholder{
   color: #b3b3b3;
 }
-form :where(.theme-emoji, .options){
+.uploadPost :where(.theme-emoji, .options){
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -197,7 +360,7 @@ form :where(.theme-emoji, .options){
 .theme-emoji img:last-child{
   max-width: 24px;
 }
-form .options{
+ .options{
   height: 57px;
   margin: 15px 0;
   padding: 0 15px;
@@ -211,13 +374,13 @@ form .options :where(.list, li),
   align-items: center;
   justify-content: center;
 }
-form .options p{
+ .options p{
   color: #595959;
   font-size: 15px;
   font-weight: 500;
   cursor: default;
 }
-form .options .list{
+ .options .list{
   list-style: none;
 }
 .options .list li{
@@ -233,7 +396,7 @@ form .options .list{
 .options .list li img{
   width: 23px;
 }
-form button{
+.post-button{
   height: 53px;
   color: #fff;
   font-size: 18px;
@@ -253,5 +416,7 @@ form textarea:valid ~ button{
 form textarea:valid ~ button:hover{
   background: #1a81ff;
 }
-
-</style>
+.post-button:hover{
+  background: #1a81ff;
+}
+</style> -->

@@ -19,7 +19,7 @@ const usePostStore = defineStore('post', () => {
         },
         body: JSON.stringify(postDto),
       };
-const urlWithUserId = `http://10.20.3.72:8091/api/posts/addOrSave`;
+const urlWithUserId = `http://10.20.3.72:8091/insta/posts/addOrSave`;
       const res = await fetch(urlWithUserId,options);
       console.log(res);
       const jsonRes = await res.json();

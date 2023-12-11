@@ -7,7 +7,10 @@
                         <div class="profileImg">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622" alt="user" class="cover">
                         </div>
-                        <h3 @click="goToProfile(post.userId)" >{{ post.userId }}<br></h3>
+
+                        <h3 @click="goToProfile(post.userId)">{{ post.username }}<br></h3>
+                        <!-- {{ post.postId }} -->
+
                     </div>
                     <div class="dot">
                         <img src="../assets/dot.png" alt="dot">
@@ -15,7 +18,7 @@
                 </div>
                 <div class="imgBg">
 
-                    <div v-if="post.datatype === 'image'">
+                    <div v-if="post.datatype === 'image/jpeg'">
                         <img :src="post.data" :alt="image" class= "cover">
                     </div>
                     <div v-else-if="post.datatype === 'video'"> 
@@ -28,8 +31,8 @@
                 </div>
                 <div class="btns">
                     <div class="left">
-                        <img src="../assets/heart.png" alt="heart" class="heart" onclick="likeButton()">
-                        <img src="../assets/comment.png" alt="comment">
+                        <img src="../assets/heart.png" alt="heart" class="heart" @click="likeButton()">
+                        <img src="../assets/comment.png" alt="comment" @click="showComment()">
                         <img src="../assets/share.png" alt="share">
                     </div>
                     <div class="right">
@@ -42,27 +45,77 @@
                     {{ post.caption }}
                     <span>#{{ post.category }}</span>
                 </h4>
-                <h4 class="comments">View all {{ post.comments.length }} comments</h4>
+                <h4 class="comments" @click="showComment()">View all {{ post.comments.length }} comments</h4>
                 <div class="addComments">
                     <div class="userImg">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622" alt="user" class="cover">
                     </div>
-                    <input type="text" class="text" placeholder="Add a comment...">
+                    <input type="text" class="text" placeholder="Add a comment..." v-model="newComment">
+                    <button class="cmt-btn" @click="updateComment(post.postId)">Comment</button>
                 </div>
                 <h5 class="postTime">5 hours ago</h5>
+                <div v-if="show">
+                <p v-for="comments in post.comments" :key="comments"><strong>{{ comments.userId }} </strong>  {{ comments.comment }}</p>
+            </div>
             </div>
            
 </body>
 </div>
 
-
-
-
-
-
-
-
 </template>
+
+
+
+<script>
+import { computed, defineComponent, ref } from 'vue';
+import useRootStore from '@/store/store.js'
+
+export default defineComponent({
+setup(){   
+    const rootStore = useRootStore()
+    // console.log(rootStore);
+    rootStore.FETCH_POST();
+    const newComment = ref('')
+    const posts = computed(() => rootStore.posts)
+    const noOfpost = ref(0);
+    const show = ref(false);
+
+    const showComment = () => {
+    if(show.value == false)
+                show.value = true;
+    else show.value = false
+    }
+
+    const updateComment =(postId)=>{
+        console.log(postId);
+        console.log(newComment.value);
+        let requestData = {
+        "postId":  postId,
+        "userId":  "6575512869e875213b5e3455",
+        "timestamp": new Date().toISOString(), 
+        "comment": newComment.value,
+
+        }
+        
+        console.log(requestData);
+        rootStore.UPDATE_COMMENT(requestData, postId);
+        newComment.value = ''
+        location.reload();
+
+    }
+
+
+    
+
+return{
+   posts,
+   noOfpost, showComment,show, updateComment,
+   newComment
+
+}}}
+)
+
+</script>
 <style scoped>
 
 *{
@@ -192,6 +245,22 @@ body{
 .addComments .text::placeholder{
     color: #777;
 }
+
+.cmt-btn{
+
+    background-color: #0095F6;
+    font-size: 12px;
+    border-radius: 5px;
+    padding: 8px ;
+    color: white;
+    border: none;
+
+}
+button:hover {
+    background-color: #97aedb;
+
+}
+
 .postTime{
     margin-top: 10px;
     font-weight: 500;
@@ -206,12 +275,9 @@ body{
 }
 
 
-
-
-
-
 </style>
 <script>
+
 import { computed, defineComponent, ref } from 'vue';
 import useRootStore from '@/store/store.js'
 
@@ -242,3 +308,4 @@ return{
 )
 
 </script>
+

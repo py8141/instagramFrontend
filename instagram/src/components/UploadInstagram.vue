@@ -12,19 +12,28 @@
             </div>
             <textarea class ="caption" placeholder="What's on your mind ?" spellcheck="false" required></textarea>
             <div class="options">
+
               <label for="file" style="cursor: pointer;">Upload Photo/Video
               <input type="file" accept="image/* | video/*" name="image" id="file" @change="handleFileChange"  />
              </label> <br>
             <img id="output" class = "selectedImg" width="200" v-if="imageUrl" :src="imageUrl" />
+
+
             </div>
             <button @click = "uploadImage" class="post-button">Post</button>
           </div>
         </section>
+        <!-- <div class="file-upload-container">
+                <input type="file" accept="image/*,video/*" name="media" id="file" @change="uploadFile"/>
+                <label for="file" class="upload-label">Upload Image or Video (max 5MB)</label>
+                <img id="output" class="uploaded-image" v-if="imageUrl" :src="imageUrl" />
+         </div> -->
       </div>
     </div>
 
 </template>
 <script scoped>
+
 
 import storage from '@/firebase'
 import { ref } from 'vue';
@@ -35,6 +44,7 @@ export default{
     const postStore = usePostStore();
     let type = ref('')
     const caption = ref("");
+
 
     const handleFileChange = (event)=>{
       const file = event.target.files[0];
@@ -245,6 +255,31 @@ body {
 
 <!-- <style scoped>
 
+
+
+
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.upload-label {
+  cursor: pointer;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.uploaded-image {
+  width: 200px;
+  margin-top: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
 .dummy{
   padding: 70px;

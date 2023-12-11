@@ -1,15 +1,14 @@
 <template>
 <div  v-for="post in posts"  :key="post"  >
 <body>
+
      <div class="card">
                 <div class="top">
                     <div class="userDeatils">
                         <div class="profileImg">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622" alt="user" class="cover">
                         </div>
-
-                        <h3 @click="goToProfile(post.userId)">{{ post.username }}<br></h3>
-                        <!-- {{ post.postId }} -->
+                        <h3 @click="goToUser(post.userId)">{{ post.username }}<br></h3>
 
                     </div>
                     <div class="dot">
@@ -31,8 +30,8 @@
                 </div>
                 <div class="btns">
                     <div class="left">
-                        <img src="../assets/heart.png" alt="heart" class="heart" @click="likeButton()">
-                        <img src="../assets/comment.png" alt="comment" @click="showComment()">
+                        <img src="../assets/heart.png" alt="heart" class="heart" @click="likeButton(post.postId)">
+                        <img src="../assets/comment.png" alt="comment">
                         <img src="../assets/share.png" alt="share">
                     </div>
                     <div class="right">
@@ -53,7 +52,8 @@
                     <input type="text" class="text" placeholder="Add a comment..." v-model="newComment">
                     <button class="cmt-btn" @click="updateComment(post.postId)">Comment</button>
                 </div>
-                <h5 class="postTime">5 hours ago</h5>
+
+                <h5 class="postTime">{{ post.timestamp }}</h5>
                 <div v-if="show">
                 <p v-for="comments in post.comments" :key="comments"><strong>{{ comments.userId }} </strong>  {{ comments.comment }}</p>
             </div>
@@ -64,11 +64,10 @@
 
 </template>
 
-
-
 <script>
 import { computed, defineComponent, ref } from 'vue';
 import useRootStore from '@/store/store.js'
+import router from '@/router';
 
 export default defineComponent({
 setup(){   
@@ -80,7 +79,26 @@ setup(){
     const noOfpost = ref(0);
     const show = ref(false);
 
-    const showComment = () => {
+    
+  const goToUser = ((userId)=>{
+          console.log(userId);
+          router.push(`/profile/${userId}`)
+      })
+      
+      const likeButton = ((postId)=>{
+          console.log(postId);
+          let likeObject ={
+              "userId" : "6575512869e875213b5e3455",
+              "posId" : postId,
+              "timestamp" : new Date().toISOString()
+          }
+          console.log(likeObject);
+          rootStore.LIKE_POST(likeObject,postId);
+          location.reload();
+
+      })
+      
+      const showComment = () => {
     if(show.value == false)
                 show.value = true;
     else show.value = false
@@ -104,8 +122,12 @@ setup(){
 
     }
 
-
-    
+return{
+   posts,
+   noOfpost,
+   likeButton,
+   goToUser
+       
 
 return{
    posts,
@@ -276,36 +298,3 @@ button:hover {
 
 
 </style>
-<script>
-
-import { computed, defineComponent, ref } from 'vue';
-import useRootStore from '@/store/store.js'
-
-export default defineComponent({
-setup(){   
-    const rootStore = useRootStore()
-
-    const userId = ref('')
-
-    rootStore.FETCH_POST();
-
-    const posts = computed(() => rootStore.posts)
-    
-    const noOfpost = ref(0);
-    const goToProfile = (userIdd)=>{
-          userId.value = userIdd
-          console.log(userId.value)
-          
-    }
-    
-return{
-   posts,
-   noOfpost,
-   userId,
-   goToProfile
-
-}}}
-)
-
-</script>
-

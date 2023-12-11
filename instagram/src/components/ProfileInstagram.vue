@@ -53,12 +53,12 @@
    
   <script>
   import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
-  import useRootStore from '../store/ProfilePage';
+  import useProfileStore from '../store/ProfilePage';
   import usePostStore from '../store/PostStore';
    
   export default {
     setup() {
-      const rootStore = useRootStore();
+      const rootStore = useProfileStore();
       const postStore = usePostStore();
       rootStore.FETCH_PROFILE();
       postStore.FETCH_POST();
@@ -128,7 +128,7 @@
     max-width: 75%;
     margin: auto;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    padding: 80px;
   }
    
   .top-row {

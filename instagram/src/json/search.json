@@ -1,0 +1,123 @@
+[
+    {
+      "userId": 1,
+      "userName": "john_doe",
+      "name": "John Doe",
+      "bio": "Software Engineer"
+    },
+    {
+      "userId": 2,
+      "userName": "jane_smith",
+      "name": "Jane Smith",
+      "bio": "Data Scientist"
+    },
+    {
+      "userId": 3,
+      "userName": "alex_jones",
+      "name": "Alex Jones",
+      "bio": "UX Designer"
+    },
+    {
+      "userId": 4,
+      "userName": "emma_watson",
+      "name": "Emma Watson",
+      "bio": "Graphic Designer"
+    },
+    {
+      "userId": 5,
+      "userName": "michael_davis",
+      "name": "Michael Davis",
+      "bio": "Product Manager"
+    },
+    {
+      "userId": 6,
+      "userName": "olivia_perez",
+      "name": "Olivia Perez",
+      "bio": "Marketing Specialist"
+    },
+    {
+      "userId": 7,
+      "userName": "sam_rodriguez",
+      "name": "Sam Rodriguez",
+      "bio": "Frontend Developer"
+    },
+    {
+      "userId": 8,
+      "userName": "lisa_chen",
+      "name": "Lisa Chen",
+      "bio": "Backend Developer"
+    },
+    {
+      "userId": 9,
+      "userName": "kevin_hall",
+      "name": "Kevin Hall",
+      "bio": "Financial Analyst"
+    },
+    {
+      "userId": 10,
+      "userName": "sarah_miller",
+      "name": "Sarah Miller",
+      "bio": "Content Writer"
+    },
+    {
+      "userId": 11,
+      "userName": "ryan_smith",
+      "name": "Ryan Smith",
+      "bio": "Network Engineer"
+    },
+    {
+      "userId": 12,
+      "userName": "lily_jackson",
+      "name": "Lily Jackson",
+      "bio": "HR Manager"
+    },
+    {
+      "userId": 13,
+      "userName": "david_brown",
+      "name": "David Brown",
+      "bio": "Sales Representative"
+    },
+    {
+      "userId": 14,
+      "userName": "grace_taylor",
+      "name": "Grace Taylor",
+      "bio": "Customer Support"
+    },
+    {
+      "userId": 15,
+      "userName": "adam_wilson",
+      "name": "Adam Wilson",
+      "bio": "Research Scientist"
+    },
+    {
+      "userId": 16,
+      "userName": "oliver_wright",
+      "name": "Oliver Wright",
+      "bio": "UI Designer"
+    },
+    {
+      "userId": 17,
+      "userName": "mia_roberts",
+      "name": "Mia Roberts",
+      "bio": "Quality Assurance"
+    },
+    {
+      "userId": 18,
+      "userName": "nathan_barnes",
+      "name": "Nathan Barnes",
+      "bio": "Project Manager"
+    },
+    {
+      "userId": 19,
+      "userName": "emily_fisher",
+      "name": "Emily Fisher",
+      "bio": "Social Media Manager"
+    },
+    {
+      "userId": 20,
+      "userName": "brandon_turner",
+      "name": "Brandon Turner",
+      "bio": "Business Analyst"
+    }
+  ]
+  

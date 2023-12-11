@@ -5,20 +5,20 @@
           <div class="user-info">
             <img :src="user?.profilePic" alt="Profile Picture" class="avatar" />
             <div class="user-details">
-              <h2>{{ user.name }}</h2>
-              <p>{{ user.bio }}</p>
+              <h2>{{ userData.userName }}</h2>
+              <p>{{  userData.bio}}</p>
             </div>
           </div>
         </div>
         <div class="right-column">
           <div class="top-right">
-            <center><h2>{{ user.username }}</h2></center>
+            <center><h2>{{ userData.name }}</h2></center>
           </div>
           <div class="bottom-right">
             <div class="user-stats">
               <p><strong>{{ posters.length }}</strong> Posts</p>
-              <p><strong>{{ user.followers.length }}</strong> Followers</p>
-              <p><strong>{{ user.following.length }}</strong> Following</p>
+              <p><strong>{{ userData.followers.length }}</strong> Followers</p>
+              <p><strong>{{ userData.following.length }}</strong> Following</p>
             </div>
             <button class="follow-button">Follow</button>
           </div>
@@ -30,7 +30,7 @@
    
       <div class="bottom-row">
         <div
-          v-for="post in posters"
+          v-for="post in userPost.data"
           :key="post.postId"
           :style="{ backgroundColor: post.color }"
           class="post"
@@ -41,33 +41,26 @@
           <p class="post-caption">{{ post.caption }}</p>
         </div>
       </div>
-   
-      <!-- <div v-if="showFullImagePopup" class="full-image-popup" @click="hideFullImage">
-        <div class="popup-content">
-          <img :src="fullImageSrc" alt="Full Image" class="popup-image" @click.stop />
-          <p class="popup-comment">{{ fullImageComment }}</p>
-        </div> -->
-      <!-- </div> -->
     </div>
   </template>
    
   <script>
-  import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
+
+  import { ref, onMounted, onBeforeUnmount,onBeforeMount, computed,watch } from 'vue';
   import useRootStore from '../store/ProfilePage';
   import usePostStore from '../store/PostStore';
-   
+  import js from '@/components/PostInstagram.vue' 
   export default {
     setup() {
-      const rootStore = useRootStore();
+      const rootStore = useProfileStore();
       const postStore = usePostStore();
-      rootStore.FETCH_PROFILE();
-      postStore.FETCH_POST();
       let hoverTimer = null;
       const hoverDelay = 200;
       const showFullImagePopup = ref(false);
       const fullImageSrc = ref('');
       const fullImageComment = ref('');
-   
+      const userId = js.userId
+      console.log('Hiis',userId)
       function startHoverTimer(post) {
         hoverTimer = setTimeout(() => {
           showFullImagePopup.value = true;
@@ -103,7 +96,23 @@
       function handleResize() {
         // Add logic to handle resizing if needed
       }
-   
+
+      const userProfile = computed(() => rootStore.userDetails) 
+      const userData = computed(() => userProfile.value.data)
+      const userPost = computed(()=> rootStore.userPosts)
+
+     watch(userProfile,()=>{
+      console.log("hiii",userProfile.value.data);
+     })
+     watch(userPost,()=>{
+      console.log("Nooos",userPost.value.data);
+     })
+
+      onBeforeMount (()=>{
+      rootStore.FETCH_USERDETAILS("65754f9169e875213b5e3454")
+      rootStore.FETCH_USERPOSTS("65754f9169e875213b5e3454")
+       })
+
       const user = computed(() => rootStore.profile);
       const posters = computed(() => postStore.posters);
    
@@ -117,6 +126,9 @@
         fullImageComment,
         user,
         posters,
+        userProfile,
+        userData,
+        userPost
       };
     },
   };
@@ -128,7 +140,8 @@
     max-width: 75%;
     margin: auto;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    padding: 80px;
+
   }
    
   .top-row {
@@ -268,6 +281,7 @@
     .left-column,
     .right-column {
       flex: 100%;
+      margin-top: 0;
     }
    
     .avatar {
@@ -276,13 +290,17 @@
     }
    
     .bottom-row {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(1, 1fr);
     }
   }
    
   @media (max-width: 480px) {
     .profile {
       max-width: 100%;
+      padding : 10%;
+    }
+    .user-info{
+        padding-top: 60px;
     }
    
     .bottom-row {

@@ -25,19 +25,19 @@
 </template>
 <script scoped>
 
-export default {
-  data() {
-    return {
-      imageUrl: null,
-    };
-  },
-  methods: {
-    loadFile(event) {
-      // const image = document.getElementById('output');
-      this.imageUrl = URL.createObjectURL(event.target.files[0]);
-    },
-  },
-};
+// export default {
+//   data() {
+//     return {
+//       imageUrl: null,
+//     };
+//   },
+//   methods: {
+//     loadFile(event) {
+//       // const image = document.getElementById('output');
+//       this.imageUrl = URL.createObjectURL(event.target.files[0]);
+//     },
+//   },
+// };
 
 
 </script>

@@ -3,7 +3,7 @@ module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
     proxy:{
-      "/insta": {
+      "/insta/search": {
         target: "http://localhost:9000/",
         changeOrigin: true
       },

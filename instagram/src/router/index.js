@@ -4,6 +4,7 @@ import PostInstagram from '@/components/PostInstagram.vue'
 import UploadInstagram from '@/components/UploadInstagram.vue'
 import ProfileInstagram from '@/components/ProfileInstagram.vue'
 import ActivityInstagram from '@/components/ActivityInstagram.vue'
+import RequesInstagram from '@/components/RequestsInstagram.vue'
 const routes=[
     {
         path:'/search',
@@ -31,7 +32,13 @@ const routes=[
       name: 'activity',
       component: ActivityInstagram
 
-    }
+    },
+    {
+        path:'/request',
+        name: 'request',
+        component: RequesInstagram
+  
+      }
 
 
 ]

@@ -10,6 +10,7 @@
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622"
                                 alt="user" class="cover">
                         </div>
+
                         <h3 @click="goToUser(post.userId)">{{ post.username }}<br></h3>
 
                     </div>
@@ -28,6 +29,7 @@
                 </div>
                 <div class="btns">
                     <div class="left">
+
                         <img src="../assets/heart.png" alt="heart" class="heart" @click="likeButton(post.postId)">
                         <img src="../assets/comment.png" alt="comment" @click="showComment(post.postId)">
                     </div>
@@ -47,6 +49,7 @@
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622"
                             alt="user" class="cover">
                     </div>
+
                     <input type="text" class="text" placeholder="Add a comment..." v-model="newComment">
                     <div v-if="newComment">
                         <button class="cmt-btn" @click="updateComment(post.postId)">Comment</button>
@@ -283,6 +286,8 @@ body {
     display: flex;
     align-items: center;
     margin-top: 10px;
+    cursor: pointer;
+    
 }
 
 .addComments .userImg {

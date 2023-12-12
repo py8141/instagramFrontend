@@ -15,7 +15,7 @@
 
         <div class="content">
                 <div class= "logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622" width="30px" height="30px">INSTAGRAM</div>
-                <router-view></router-view>
+                <!-- <router-view></router-view> -->
         </div>
 </div>
 </template>
@@ -186,13 +186,13 @@ font-weight: bold;
 div.content {
   margin-left: 200px;
   padding: 0px 16px;
-  height: 1000px;
+  height: 10px;
 }
 .content::webkit-scrollbar {
   display: none;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 770px) {
   .sidebar {
     width: 100%;
     position: fixed;

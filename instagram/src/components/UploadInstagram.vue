@@ -56,7 +56,7 @@ export default {
 
       selectedFile.value = file;
     }
-    const uploadImage = async () => {
+    const uploadImage = async () => { 
       console.log(selectedFile.value)
       console.log("inside")
       if (selectedFile.value) {
@@ -67,9 +67,13 @@ export default {
             .then((url) => {
               type = selectedFile.value.type
               console.log(selectedFile.value.type)
-              router.push('/postInstagram')
               console.log(url)
               addPost(url, type)
+              // const toast=useToast();
+              // toast.success
+
+              
+              router.push('/postInstagram')
             })
             .catch(() => {
 

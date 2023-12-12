@@ -6,7 +6,7 @@
 </script>
 <style scoped>
 p{
-    padding:70px;
+    padding:70px 0px 0px 400px;
 }
 
 </style>

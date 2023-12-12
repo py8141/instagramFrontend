@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="searchDiv">
     <div class="search-bar" :class="{ active: searchBarActive }" @click="toggleSearchBar">
       <input type="text" placeholder="Search..." class="search-input" v-model="searchText" @input="onSearch" />
       <div v-if="searchText || searchBarActive" class="clear-text" @click.stop="clearText">Clear</div>
@@ -77,6 +77,10 @@ export default { setup };
 </script>
 
 <style scoped>
+
+.searchDiv{
+  padding-left: 170px;
+}
   .search-bar {
     top: 60px;
     width: 60%;
@@ -118,7 +122,7 @@ export default { setup };
   .content {
     top: 300px;
     transition: background-color 0.3s;
-    margin-top: 80px;
+    margin-top: 20px;
     width: 60%;
     margin: 100px auto;
     box-shadow: 0px 0px 10px rgba(255, 253, 253, 0.2);

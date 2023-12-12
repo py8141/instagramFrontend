@@ -1,6 +1,7 @@
 import { defineComponent, ref } from "vue";
 import { registerWithEmailAndPassword, signInWithGoogle } from "@/firestore/firebaselogin"
 import { useCookies } from "vue3-cookies";
+import router from "@/router";
 export default defineComponent({
   setup() {
     const { cookies } = useCookies();
@@ -43,10 +44,11 @@ export default defineComponent({
         "Content-Type": "application/json",
       },
     });
-    getUserDetails()
+
      console.log(response.headers.get('Authorization'))
      cookies.set("serverToken",decodeURI(response.headers.get('Authorization')))
      console.log(cookies.get('serverToken'))
+     getUserDetails()
   }
 
    const getUserDetails = async ()=>{
@@ -60,7 +62,9 @@ export default defineComponent({
   })
      
      const res = await response.json()
-     cookies.set("uid",res.uid)
+     cookies.set("firebaseuid",res.uid)
+     cookies.set("userEmail",res.email)
+     router.push('/registry')
      console.log(res)
   }
     

@@ -29,7 +29,6 @@
                 </div>
                 <div class="btns">
                     <div class="left">
-
                         <img src="../assets/heart.png" alt="heart" class="heart" @click="likeButton(post.postId)">
                         <img src="../assets/comment.png" alt="comment" @click="showComment(post.postId)">
                     </div>

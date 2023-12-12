@@ -46,7 +46,7 @@
 
           <!-- Submit Button -->
           <div class="field space button">
-            <input type="submit" value="SUBMIT">
+            <input type="submit" @click="sendToheader" value="SUBMIT">
           </div>
         </div>
       </form>
@@ -54,6 +54,8 @@
   </div>
 </template>
 
+
+<script src="@/js/Registry.js"></script>
 <style scoped>
   * {
     margin: 0;

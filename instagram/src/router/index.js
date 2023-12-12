@@ -7,9 +7,17 @@ import ActivityInstagram from '@/components/ActivityInstagram.vue'
 import LoginPage from '@/components/LoginPage.vue'
 import SignUp from '@/components/SignUp.vue'
 import RequesInstagram from '@/components/RequestsInstagram.vue'
+import RegistryPage from '@/components/RegistryPage.vue'
+import HeaderInstagram from '@/components/HeaderInstagram.vue'
 const routes=[
+    
     {
-        path:'/search',
+        path:'/header',
+        name: 'header',
+        component: HeaderInstagram
+    },
+    {
+        path:'/search/',
         name: 'search',
         component: SearchInstagram
     },
@@ -40,7 +48,7 @@ const routes=[
         component: LoginPage
       },
       {
-        path:'/signup',
+        path:'/',
         name: 'signup',
         component: SignUp
 
@@ -51,6 +59,11 @@ const routes=[
         name: 'request',
         component: RequesInstagram
   
+      },
+      {
+          path:'/registry',
+          name: 'register',
+          component: RegistryPage
       }
 
 

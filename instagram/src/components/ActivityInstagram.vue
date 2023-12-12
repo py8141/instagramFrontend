@@ -1,37 +1,42 @@
 <template>
-  <div class="activity">
-    <div class="userName">
-      {{ data.userName }} {{ data.action }} your pic!!
+  <div class="activity" v-for="(act , index) in act.value" :key="index">
+    <div>
+      UserId : {{ act.userId }}
     </div>
-    <div class="timestamp">
-      {{ data.timestamp }}
+    <div>
+      {{ act.activity }}
     </div>
-    <div class="userName">
-      {{ data.userName }} {{ data.action }} your pic!!
+    <div>
+      Post Id : {{ act.postId }}
+    </div>
     
-    </div>
-    <div class="timestamp">
-      {{ data.timestamp }}
-    </div>
+    
   </div>
 </template>
 <script>
+import activityStore from '@/store/activity-store.js'
+import { computed , onBeforeMount, ref } from 'vue';
 
 export default {
   setup() {
-    return {
-      data: {
-        userName: "aashim",
-        action: "liked",
-        timestamp: "12:09pm",
-      }
+    const act = ref();
+    const activity = activityStore();
+
+    onBeforeMount(() => {
+      activity.FETCH_ACTIVITY();
+      act.value = computed(()=> activity.activity)
+      console.log(act.value);
+    })
+    return{
+      act
     }
+    
   }
 }
 </script>
 <style scoped>
 .activity {
-  border: 1px solid #ddd;
+  left: 300px;
   padding: 70px;
   margin: 10px;
   position: relative;

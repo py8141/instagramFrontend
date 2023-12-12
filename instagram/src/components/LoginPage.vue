@@ -1,0 +1,90 @@
+<template>
+  <div class="px-2 sm:px-6 lg:px-8 bg-black text-2xl bg-image">
+    <div class="relative flex h-16 items-center justify-between">
+      <div
+        class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
+      >
+        <div class="flex flex-shrink-0 items-center" style="color: black">
+          Instagram
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="maindiv">
+    <div class="max-w-sm mx-auto">
+      <div class="mb-5">
+        <label
+          for="email"
+          class="block mb-2 text-sm font-medium text-black:text-white"
+          >Your email</label
+        >
+        <input
+          type="email"
+          id="email"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="name@flowbite.com"
+          required
+          v-model="email"
+        />
+      </div>
+      <div class="mb-5">
+        <label
+          for="password"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Your password</label
+        >
+        <input
+          type="password"
+          id="password"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          required
+          v-model="password"
+        />
+      </div>
+      <div>
+        <button
+          type="submit"
+          class="text-black bg-purple-200 hover:bg-purple-300 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 mb-4"
+          @click.prevent="handleLogin"
+        >
+          Login
+        </button>
+      </div>
+      <div>
+        <button
+        class="text-black bg-purple-200 hover:bg-purple-300 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800 mb-4"
+        @click="handleLoginGoogle"
+          >
+          Login with Google
+        </button>
+      </div>
+      <div style="padding-top: 10px">
+        Don't have an account ? &nbsp;
+        <span style="text-decoration: underline;"><router-link to="/signup">Register Now</router-link></span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script src="@/js/loginpage.js"></script>
+
+<style scoped>
+.maindiv {
+  width: 350px;
+  height: 350px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.bg-image {
+    background-image: url(../assets/image.jpeg); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+</style>

@@ -17,6 +17,7 @@
           <div class="bottom-right">
             <div class="user-stats">
               <p><strong>{{ posters.length }}</strong> Posts</p>
+
               <p><strong>{{ userData?.followers?.length }}</strong> Followers</p>
               <p><strong>{{ userData?.following?.length }}</strong> Following</p>
             </div>

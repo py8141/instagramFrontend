@@ -11,9 +11,6 @@
                         <h3>{{ post.username }}<br></h3>
                         <!-- {{ post.postId }} -->
                     </div>
-                    <div class="dot">
-                        <img src="../assets/dot.png" alt="dot">
-                    </div>
                 </div>
                 <div class="imgBg">
 
@@ -34,9 +31,6 @@
                         <img src="../assets/comment.png" alt="comment" @click="showComment()">
                         <img src="../assets/share.png" alt="share">
                     </div>
-                    <div class="right">
-                        <img src="../assets/bookmark.png" alt="bookmark">
-                    </div>
                 </div>
                 <h4 class="likes">{{ post.likesOnPost.length }} likes</h4>
                 <h4 class="message">
@@ -49,8 +43,10 @@
                     <div class="userImg">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622" alt="user" class="cover">
                     </div>
-                    <input type="text" class="text" placeholder="Add a comment..." v-model="newComment">
-                    <button class="cmt-btn" @click="updateComment(post.postId)">Comment</button>
+                    <input type="text" class="text" placeholder="Add a comment..." v-model="newComment" >
+                    <div v-if="newComment">
+                    <button class="cmt-btn" @click="updateComment(post.postId)" >Comment</button>
+                    </div>
                 </div>
                 <h5 class="postTime">5 hours ago</h5>
                 <div v-if="show">
@@ -219,11 +215,14 @@ body{
     margin-top: 10px;
     align-items: center;
     color: #999;
+    cursor: pointer;
 }
 .addComments{
     display: flex;
     align-items: center;
     margin-top: 10px;
+    cursor: pointer;
+    
 }
 .addComments .userImg{
     position: relative;

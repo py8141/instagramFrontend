@@ -1,13 +1,13 @@
 <template>
   <HeaderInstagram></HeaderInstagram>
-      <RegistryPage></RegistryPage>
+      <!-- <RegistryPage></RegistryPage> -->
  <AdsInstgram></AdsInstgram>
  </template>
  
  
  
  <script>
- import RegistryPage from './components/RegistryPage.vue';
+//  import RegistryPage from './components/RegistryPage.vue';
  import HeaderInstagram from './components/HeaderInstagram.vue'
  import AdsInstgram from './components/AdsInstagram.vue'
  export default {
@@ -15,7 +15,6 @@
    components: {
      HeaderInstagram,
       AdsInstgram,
-      RegistryPage
    }
  }
  </script>

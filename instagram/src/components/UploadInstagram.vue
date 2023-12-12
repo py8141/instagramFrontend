@@ -34,7 +34,7 @@
     </div>
   </div>
 </template>
-<script scoped>
+<script >
 
 
 import storage from '@/firebase'

@@ -17,9 +17,13 @@
           <div class="bottom-right">
             <div class="user-stats">
               <p><strong>{{ posters.length }}</strong> Posts</p>
-              <p><strong>{{ userData?.followers.length }}</strong> Followers</p>
-              <p><strong>{{ userData?.following.length }}</strong> Following</p>
+
+              <p><strong>{{ userData?.followers?.length }}</strong> Followers</p>
+              <p><strong>{{ userData?.following?.length }}</strong> Following</p>
             </div>
+            <!-- <button v-if="isFollowing(user.userId)" @click="toggleFollow(result.userId)" class="follow-button">Following</button>
+            <button v-else @click="toggleFollow(user.userId)" class="follow-button">Follow</button> -->
+
             <button class="follow-button">Follow</button>
           </div>
         </div>
@@ -37,29 +41,53 @@
           @mouseenter="startHoverTimer(post)"
           @mouseleave="clearHoverTimer"
         >
-          <img :src="post.data" alt="Post Image" class="post-image" @click="showFullImage(post)" />
-          <p class="post-caption">{{ post.caption }}</p>
+
+                    <div v-if="post.datatype.includes('image')">
+                        <img :src="post.data" alt="image" class="post-image" @click="showFullImage(post)">
+                        <p class="post-caption">{{ post.caption }}</p>
+                    </div>
+                    <div v-else-if="post.datatype.includes('video')">
+                        <video alt="video" class="post-video" muted autoplay @click="showFullImage(post)" width="300" height="250">
+                            <source :src="post.data" type="video/mp4">
+                            <p class="post-caption">{{ post.caption }}</p>
+                        </video>
+
+                    </div>
+
+
+          <!-- <img :src="post.data" alt="Post Image" class="post-image" @click="showFullImage(post)" />
+          <p class="post-caption">{{ post.caption }}</p> -->
         </div>
       </div>
     </div>
   </template>
    
   <script>
+
   import { ref, onMounted, onBeforeUnmount,onBeforeMount, computed,watch } from 'vue';
-  import useRootStore from '../store/ProfilePage';
+  import useProfileStore from '../store/ProfilePage';
   import usePostStore from '../store/PostStore';
   import js from '@/components/PostInstagram.vue' 
   export default {
     setup() {
-      const rootStore = useRootStore();
+      const prfileStore = useProfileStore();
       const postStore = usePostStore();
       let hoverTimer = null;
       const hoverDelay = 200;
       const showFullImagePopup = ref(false);
       const fullImageSrc = ref('');
       const fullImageComment = ref('');
+
+      const isFollowing = (userId) => {
+        return prfileStore.followers.includes(userId);
+      };
+
+      const toggleFollow = (userId) => {
+        console.log(`Toggle follow for user with ID ${userId}`);
+      };
       const userId = js.userId
       console.log('Hiis',userId)
+      
       function startHoverTimer(post) {
         hoverTimer = setTimeout(() => {
           showFullImagePopup.value = true;
@@ -96,9 +124,9 @@
         // Add logic to handle resizing if needed
       }
 
-      const userProfile = computed(() => rootStore.userDetails) 
+      const userProfile = computed(() => prfileStore.userDetails) 
       const userData = computed(() => userProfile.value.data)
-      const userPost = computed(()=> rootStore.userPosts)
+      const userPost = computed(()=> prfileStore.userPosts)
 
      watch(userProfile,()=>{
       console.log("hiii",userProfile.value.data);
@@ -108,11 +136,11 @@
      })
 
       onBeforeMount (()=>{
-      rootStore.FETCH_USERDETAILS("65754f9169e875213b5e3454")
-      rootStore.FETCH_USERPOSTS("65754f9169e875213b5e3454")
+      prfileStore.FETCH_USERDETAILS("65754f9169e875213b5e3454")
+      prfileStore.FETCH_USERPOSTS("65754f9169e875213b5e3454")
        })
 
-      const user = computed(() => rootStore.profile);
+      const user = computed(() => prfileStore.profile);
       const posters = computed(() => postStore.posters);
    
       return {
@@ -125,6 +153,9 @@
         fullImageComment,
         user,
         posters,
+
+        isFollowing,
+        toggleFollow,
         userProfile,
         userData,
         userPost
@@ -139,7 +170,8 @@
     max-width: 75%;
     margin: auto;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    padding: 80px;
+
   }
    
   .top-row {
@@ -279,6 +311,7 @@
     .left-column,
     .right-column {
       flex: 100%;
+      margin-top: 0;
     }
    
     .avatar {
@@ -287,13 +320,17 @@
     }
    
     .bottom-row {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(1, 1fr);
     }
   }
    
   @media (max-width: 480px) {
     .profile {
       max-width: 100%;
+      padding : 10%;
+    }
+    .user-info{
+        padding-top: 60px;
     }
    
     .bottom-row {

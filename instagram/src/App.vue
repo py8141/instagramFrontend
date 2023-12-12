@@ -1,9 +1,9 @@
 <template>
   <HeaderInstagram></HeaderInstagram>
- 
  <AdsInstgram></AdsInstgram>
  </template>
  <script>
+ import RegistryPage from './components/RegistryPage.vue';
  import HeaderInstagram from './components/HeaderInstagram.vue'
  import AdsInstgram from './components/AdsInstagram.vue'
  //import SignUp from './components/SignUp.vue';
@@ -14,11 +14,11 @@
     HeaderInstagram,
     AdsInstgram,
    // SignUp,
-
 },
 // const isLoggedin =computed(()=>{
      
 // } )
+
 
  }
  </script>

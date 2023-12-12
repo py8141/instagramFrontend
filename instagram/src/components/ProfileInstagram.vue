@@ -78,7 +78,7 @@
       const fullImageComment = ref('');
 
       const isFollowing = (userId) => {
-        return rootStore.followers.includes(userId);
+        return prfileStore.followers.includes(userId);
       };
 
       const toggleFollow = (userId) => {
@@ -154,7 +154,7 @@
         posters,
 
         isFollowing,
-        toggleFollow
+        toggleFollow,
         userProfile,
         userData,
         userPost

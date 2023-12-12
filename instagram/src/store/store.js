@@ -7,7 +7,7 @@ import {  ref } from "vue";
         // const res1 = await require("../json/posts.json");
         // posts.value=res1
      
-        const res = await fetch('http://10.20.3.72:8091/api/feed/byUserId/6575512869e875213b5e3455')
+        const res = await fetch('http://10.20.3.72:8091/insta/feed/byUserId/6575512869e875213b5e3455')
         const json = await res.json();
         posts.value = json
         console.log(posts.value);
@@ -23,7 +23,7 @@ import {  ref } from "vue";
                 body: JSON.stringify(commentDto),
             };
     
-            const res = await fetch(`http://10.20.3.72:8091/api/posts/comment/${postId}`, options);
+            const res = await fetch(`http://10.20.3.72:8091/insta/posts/comment/${postId}`, options);
     
             if (!res.ok) {
                 throw new Error(`Failed to like the post. Status: ${res.status}`);

@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
-import userStore from "@/store/userStore";
-import {useCookies} from "vue-cookies"; 
+
  
 import {
   GoogleAuthProvider,
@@ -52,16 +51,9 @@ const signInWithGoogle = async () => {
         email: user.email,
       });
 
-      console.log(response)
-      const idToken=response._tokenResponse.idToken;
-      const userId=res.user.uid;
+     console.log(response)
+      return res
 
-      const{cookies}=useCookies();
-      cookies.set("token",idToken);
-      cookies.set("userId",userId);
-      userStore.token.value=idToken;
-      userStore.userId.value=userId;
-      console.log(idToken,userId);
     }
   } catch (err) {
     console.error(err);

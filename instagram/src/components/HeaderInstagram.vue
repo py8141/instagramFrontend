@@ -9,10 +9,9 @@
                 <router-link to="/activity">ACTIVITY</router-link> <br>
                  <img :src="user?.profilePic" alt="Profile Picture" class="avatar" />
                  <h3 class="profile-user-name" @click="profileRedirect">{{ user.username }}</h3>
-               
                   <a class="logout" style="color: #0095F6;" >Logout</a>       
-                </div>    
-          
+          </div>    
+
 
         <div class="content">
                 <div class= "logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622" width="30px" height="30px">INSTAGRAM</div>
@@ -20,6 +19,7 @@
         </div>
 </div>
 </template>
+
 <script>
 
 import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
@@ -101,6 +101,7 @@ import router from '@/router';
 
 
 </script>
+
 <style scoped>
 
 .avatar{

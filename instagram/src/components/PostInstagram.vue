@@ -1,36 +1,41 @@
 <template>
-<div  v-for="post in posts"  :key="post"  >
-<body>
-        
-        <div class="card">
+    <div v-for="post in posts" :key="post.postId">
+
+        <body>
+
+            <div class="card">
                 <div class="top">
                     <div class="userDeatils">
                         <div class="profileImg">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622" alt="user" class="cover">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622"
+                                alt="user" class="cover">
                         </div>
-                        <h3>{{ post.username }}<br></h3>
-                        <!-- {{ post.postId }} -->
+
+                        <h3 @click="goToUser(post.userId)">{{ post.username }}<br></h3>
+
                     </div>
                 </div>
                 <div class="imgBg">
 
-                    <div v-if="post.datatype === 'image/jpeg'">
-                        <img :src="post.data" :alt="image" class= "cover">
+                    <div v-if="post.datatype.includes('image')">
+                        <img :src="post.data" alt="image" class="cover">
                     </div>
-                    <div v-else-if="post.datatype === 'video'"> 
-                     <iframe src="https://www.youtube.com/embed/HorXomQrOi8" class="cover"> 
-                         <!-- <video  alt="video" class= "cover"  controls>
-                         <source :src="post.data" type="video/mp4"> 
-                         </video>  -->
-                     </iframe>
+                    <div v-else-if="post.datatype.includes('video')">
+                        <video alt="video" class="cover" muted autoplay>
+                            <source :src="post.data" type="video/mp4">
+                        </video>
+
                     </div>
                 </div>
                 <div class="btns">
                     <div class="left">
-                        <img src="../assets/heart.png" alt="heart" class="heart" @click="likeButton()">
-                        <img src="../assets/comment.png" alt="comment" @click="showComment()">
-                        <img src="../assets/share.png" alt="share">
+
+                        <img src="../assets/heart.png" alt="heart" class="heart" @click="likeButton(post.postId)">
+                        <img src="../assets/comment.png" alt="comment" @click="showComment(post.postId)">
                     </div>
+                <div class="right">
+                    <h5 class="postTime">{{ formatTimeAgo(post.timestamp) }} </h5>
+                 </div>
                 </div>
                 <h4 class="likes">{{ post.likesOnPost.length }} likes</h4>
                 <h4 class="message">
@@ -38,95 +43,138 @@
                     {{ post.caption }}
                     <span>#{{ post.category }}</span>
                 </h4>
-                <h4 class="comments" @click="showComment()">View all {{ post.comments.length }} comments</h4>
+                <h4 class="comments" @click="showComment(post.postId)">View all {{ post.comments.length }} comments</h4>
                 <div class="addComments">
                     <div class="userImg">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622" alt="user" class="cover">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/264px-Instagram_logo_2016.svg.png?20210403190622"
+                            alt="user" class="cover">
                     </div>
-                    <input type="text" class="text" placeholder="Add a comment..." v-model="newComment" >
+
+                    <input type="text" class="text" placeholder="Add a comment..." v-model="newComment">
                     <div v-if="newComment">
-                    <button class="cmt-btn" @click="updateComment(post.postId)" >Comment</button>
+                        <button class="cmt-btn" @click="updateComment(post.postId)">Comment</button>
                     </div>
                 </div>
-                <h5 class="postTime">5 hours ago</h5>
                 <div v-if="show">
-                <p v-for="comments in post.comments" :key="comments"><strong>{{ comments.userId }} </strong>  {{ comments.comment }}</p>
+                    <p v-for="comments in post.comments" :key="comments.postId"><strong>{{ comments.userId }} </strong> {{
+                        comments.comment }}</p>
+                </div>
             </div>
-            </div>
-           
-</body>
-</div>
 
+        </body>
+    </div>
 </template>
-
-
 
 <script>
 import { computed, defineComponent, ref } from 'vue';
 import useRootStore from '@/store/store.js'
+import router from '@/router';
 
 export default defineComponent({
-setup(){   
-    const rootStore = useRootStore()
-    // console.log(rootStore);
-    rootStore.FETCH_POST();
-    const newComment = ref('')
-    const posts = computed(() => rootStore.posts)
-    const noOfpost = ref(0);
-    const show = ref(false);
+    setup() {
+        const rootStore = useRootStore()
+        // console.log(rootStore);
+        rootStore.FETCH_POST();
+        const newComment = ref('')
+        const posts = computed(() => rootStore.posts)
+        const noOfpost = ref(0);
+        const show = ref(false);
 
-    const showComment = () => {
-    if(show.value == false)
-                show.value = true;
-    else show.value = false
-    }
 
-    const updateComment =(postId)=>{
-        console.log(postId);
-        console.log(newComment.value);
-        let requestData = {
-        "postId":  postId,
-        "userId":  "6575512869e875213b5e3455",
-        "timestamp": new Date().toISOString(), 
-        "comment": newComment.value,
+        const goToUser = ((userId) => {
+            console.log(userId);
+            router.push(`/profile/${userId}`)
+        })
+
+
+        const formatTimeAgo = (timestamp) => {
+            const now = new Date();
+            const postTime = new Date(timestamp);
+            const timeDifference = now - postTime;
+            const seconds = Math.floor(timeDifference / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+
+            if (hours > 0) {
+                return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
+            } else if (minutes > 0) {
+                return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} ago`;
+            } else {
+                return `${seconds} ${seconds === 1 ? 'second' : 'seconds'} ago`;
+            }
+        }
+
+
+
+        const likeButton = ((postId) => {
+            console.log(postId);
+            let likeObject = {
+                "userId": "6575512869e875213b5e3455",
+                "postId": postId,
+                "timestamp": new Date().toISOString()
+            }
+            console.log(likeObject);
+            rootStore.LIKE_POST(likeObject, postId);
+            location.reload();
+
+        })
+
+        const showComment = () => {
+            if (show.value === false) {
+                return show.value = true
+            } else {
+                show.value = false
+            }
+        }
+        const updateComment = postId => {
+            console.log(postId);
+            console.log(newComment.value);
+            let requestData = {
+                "postId": postId,
+                "userId": "6575512869e875213b5e3455",
+                "timestamp": new Date().toISOString(),
+                "comment": newComment.value,
+
+            }
+
+            console.log(requestData);
+            rootStore.UPDATE_COMMENT(requestData, postId);
+            newComment.value = ''
+            location.reload();
+        }
+
+        return {
+            posts,
+            noOfpost,
+            likeButton,
+            goToUser,
+            showComment, show, updateComment,
+            newComment,
+            formatTimeAgo
+
 
         }
-        
-        console.log(requestData);
-        rootStore.UPDATE_COMMENT(requestData, postId);
-        newComment.value = ''
-        location.reload();
-
     }
-
-
-    
-
-return{
-   posts,
-   noOfpost, showComment,show, updateComment,
-   newComment
-
-}}}
-)
+})
 
 </script>
 <style scoped>
-
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Poppins;
 }
-body{
+
+body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     background: white;
 }
-.card{
+
+.card {
     position: relative;
     width: 600px;
     min-height: 400px;
@@ -134,16 +182,19 @@ body{
     box-shadow: 15px 15px 60px rgba(0, 0, 0, .15);
     padding: 20px;
 }
-.card .top{
+
+.card .top {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.card .top .userDeatils{
+
+.card .top .userDeatils {
     display: flex;
     align-items: center;
 }
-.card .top .userDeatils .profileImg{
+
+.card .top .userDeatils .profileImg {
     position: relative;
     width: 40px;
     height: 40px;
@@ -151,7 +202,8 @@ body{
     margin-right: 8px;
     overflow: hidden;
 }
-.cover{
+
+.cover {
     position: absolute;
     top: 0;
     right: 0;
@@ -161,70 +213,84 @@ body{
     object-position: center;
     cursor: pointer;
 }
-.card .top .userDeatils h3{
+
+.card .top .userDeatils h3 {
     font-size: 18px;
     color: #4d4d4f;
     font-weight: 700;
     line-height: 1rem;
     cursor: pointer;
 }
-.card .top .userDeatils span{
+
+.card .top .userDeatils span {
     font-size: 0.75em;
 }
-.card .top .dot{
+
+.card .top .dot {
     transform: scale(0.6);
     cursor: pointer;
 }
-.imgBg{
+
+.imgBg {
     position: relative;
     width: 100%;
     height: 320px;
     margin: 10px 0 15px;
 }
-.btns{
+
+.btns {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.btns img{
+
+.btns img {
     max-width: 24px;
     cursor: pointer;
 }
-.btns .left img{
+
+.btns .left img {
     margin-right: 8px;
 }
-.likes{
+
+.likes {
     margin-top: 5px;
     font-size: 1em;
     color: #4d4d4f;
 }
-.message{
+
+.message {
     font-weight: 400;
     margin-top: 5px;
     color: #777;
     line-height: 1.5em;
 }
-.message b{
+
+.message b {
     color: #262626;
 }
-.message span{
+
+.message span {
     color: #1d92ff;
     cursor: pointer;
 }
-.comments{
+
+.comments {
     margin-top: 10px;
     align-items: center;
     color: #999;
     cursor: pointer;
 }
-.addComments{
+
+.addComments {
     display: flex;
     align-items: center;
     margin-top: 10px;
     cursor: pointer;
     
 }
-.addComments .userImg{
+
+.addComments .userImg {
     position: relative;
     min-width: 30px;
     height: 30px;
@@ -232,7 +298,8 @@ body{
     overflow: hidden;
     margin-right: 8px;
 }
-.addComments .text{
+
+.addComments .text {
     width: 100%;
     border: none;
     outline: none;
@@ -240,41 +307,36 @@ body{
     font-size: 18px;
     color: #262626;
 }
-.addComments .text::placeholder{
+
+.addComments .text::placeholder {
     color: #777;
 }
 
-.cmt-btn{
+.cmt-btn {
 
     background-color: #0095F6;
     font-size: 12px;
     border-radius: 5px;
-    padding: 8px ;
+    padding: 8px;
     color: white;
     border: none;
 
 }
+
 button:hover {
     background-color: #97aedb;
 
 }
 
-.postTime{
+.postTime {
     margin-top: 10px;
     font-weight: 500;
     color: #777;
 }
 
 @media screen and (max-width: 700px) {
-  body {
-    min-height: 10vh;
-   
-  }
-}
+    body {
+        min-height: 10vh;
 
-
-
-
-
-
-</style>
+    }
+}</style>

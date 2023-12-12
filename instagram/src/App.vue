@@ -1,43 +1,30 @@
 <template>
-  <nav>
-    <RegistryPage></RegistryPage>
-  </nav>
-</template>
-
-
-<script>
-import RegistryPage from './components/RegistryPage.vue';
-
-export default {
-  name: 'App',
-  components: {
-    RegistryPage
-}
-}
-
-</script>
-
-
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+  <HeaderInstagram></HeaderInstagram>
+      <RegistryPage></RegistryPage>
+ <AdsInstgram></AdsInstgram>
+ </template>
+ 
+ 
+ 
+ <script>
+ import RegistryPage from './components/RegistryPage.vue';
+ import HeaderInstagram from './components/HeaderInstagram.vue'
+ import AdsInstgram from './components/AdsInstagram.vue'
+ export default {
+   name: 'App',
+   components: {
+     HeaderInstagram,
+      AdsInstgram,
+      RegistryPage
+   }
+ }
+ </script>
+ 
+ <style>
+ body {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+ }
+ </style>
+ 

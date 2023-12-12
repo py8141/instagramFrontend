@@ -1,19 +1,25 @@
 <template>
   <HeaderInstagram></HeaderInstagram>
+ 
  <AdsInstgram></AdsInstgram>
  </template>
- 
- 
- 
  <script>
  import HeaderInstagram from './components/HeaderInstagram.vue'
  import AdsInstgram from './components/AdsInstagram.vue'
+ //import SignUp from './components/SignUp.vue';
+
  export default {
    name: 'App',
    components: {
-     HeaderInstagram,
-      AdsInstgram
-   }
+    HeaderInstagram,
+    AdsInstgram,
+   // SignUp,
+
+},
+// const isLoggedin =computed(()=>{
+     
+// } )
+
  }
  </script>
  

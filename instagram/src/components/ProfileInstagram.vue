@@ -5,20 +5,20 @@
           <div class="user-info">
             <img :src="user?.profilePic" alt="Profile Picture" class="avatar" />
             <div class="user-details">
-              <h2>{{ userData.userName }}</h2>
-              <p>{{  userData.bio}}</p>
+              <h2>{{ userData?.userName }}</h2>
+              <p>{{  userData?.bio}}</p>
             </div>
           </div>
         </div>
         <div class="right-column">
           <div class="top-right">
-            <center><h2>{{ userData.name }}</h2></center>
+            <center><h2>{{ userData?.name }}</h2></center>
           </div>
           <div class="bottom-right">
             <div class="user-stats">
               <p><strong>{{ posters.length }}</strong> Posts</p>
-              <p><strong>{{ userData.followers.length }}</strong> Followers</p>
-              <p><strong>{{ userData.following.length }}</strong> Following</p>
+              <p><strong>{{ userData?.followers.length }}</strong> Followers</p>
+              <p><strong>{{ userData?.following.length }}</strong> Following</p>
             </div>
             <button class="follow-button">Follow</button>
           </div>

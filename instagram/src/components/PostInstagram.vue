@@ -54,14 +54,6 @@
            
 </body>
 </div>
-
-
-
-
-
-
-
-
 </template>
 <style scoped>
 
@@ -222,7 +214,7 @@ setup(){
     const userId = ref('')
 
     rootStore.FETCH_POST();
-
+     
     const posts = computed(() => rootStore.posts)
     
     const noOfpost = ref(0);

@@ -105,7 +105,6 @@ export default defineComponent({
         }
 
 
-
         const likeButton = ((postId) => {
             console.log(postId);
             let likeObject = {
@@ -333,6 +332,7 @@ button:hover {
     font-weight: 500;
     color: #777;
 }
+
 
 @media screen and (max-width: 700px) {
     body {

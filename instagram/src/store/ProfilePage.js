@@ -29,6 +29,7 @@ const useProfileStore = defineStore("profile", () => {
     userDetails.value = { data };
     console.log("ss");
     console.log(data);
+
   };
   const userPosts = ref({});
   const FETCH_USERPOSTS = async (userId) => {

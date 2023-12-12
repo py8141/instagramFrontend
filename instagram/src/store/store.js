@@ -1,11 +1,12 @@
 import { defineStore } from "pinia";
 import {  ref } from "vue";
- 
+import { useCookies } from "vue3-cookies"; 
  const useRootStore = defineStore('root', () => {
     const posts =  ref(null)
     const FETCH_POST = async ()=>{
-    // const res1 = await require("../json/posts.json");
-    // posts.value=res1
+    const {cookies} = useCookies()
+    const token = cookies.get('token')
+    console.log(token) 
     const res = await fetch('http://10.20.3.72:8091/insta/feed/byUserId/6575512869e875213b5e3455')
     const json = await res.json();
     posts.value = json
